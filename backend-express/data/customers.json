@@ -1,0 +1,41 @@
+[
+    {
+        "Id": 1,
+        "FirstName": "Nhất Duy",
+        "LastName": "Nguyễn",
+        "Email": "nduy191@gmail.com",
+        "PhoneNumber":"110",
+        "Address": "38 Yên Bái",
+        "Birthday": "24/09/2000"
+    },
+
+    {
+        "Id": 2,
+        "FirstName": "Văn Công",
+        "LastName": "Lý",
+        "Email": "nduy1991@gmail.com",
+        "PhoneNumber":"111",
+        "Address": "38 Yên Bái",
+        "Birthday": "05/06/2002"
+    },
+
+    {
+        "Id": 3,
+        "FirstName": "Hùng Mạnh",
+        "LastName": "Phạm",
+        "Email": "nduy19991@gmail.com",
+        "PhoneNumber":"112",
+        "Address": "38 Yên Bái",
+        "Birthday": "14/08/1999"
+    },
+
+    {
+        "Id": 1,
+        "FirstName": "Công Khanh",
+        "LastName": "Phan",
+        "Email": " phancongkhanhofficial@gmail.com",
+        "PhoneNumber":"0907 666666",
+        "Address": "38 Yên Bái",
+        "Birthday": "24/03/1994"
+    }
+]

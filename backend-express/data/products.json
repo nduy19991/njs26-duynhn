@@ -1,0 +1,25 @@
+[
+    {
+        "Id": 1,
+        "Name": "CPU",
+        "Description": "Các loại CPU cho máy tính"
+    },
+
+    {
+        "Id": 2,
+        "Name": "RAM",
+        "Description": "Các loại RAM cho máy tính"
+    },
+
+    {
+        "Id": 3,
+        "Name": "MainBoard",
+        "Description": "Các loại MainBoard cho máy tính"
+    },
+
+    {
+        "Id": 1,
+        "Name": "SSD",
+        "Description": "Các loại SSD cho máy tính"
+    }
+]

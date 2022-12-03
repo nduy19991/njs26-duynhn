@@ -1,0 +1,33 @@
+[
+    {
+        "Id": 1,
+        "Name": "Nhất Duy",
+        "Email": "nduy191@gmail.com",
+        "PhoneNumber":"110",
+        "Address": "38 Yên Bái"
+    },
+
+    {
+        "Id": 2,
+        "Name": "Văn Công",
+        "Email": "nduy1991@gmail.com",
+        "PhoneNumber":"111",
+        "Address": "38 Yên Bái"
+    },
+
+    {
+        "Id": 3,
+        "Name": "Hùng Mạnh",
+        "Email": "nduy19991@gmail.com",
+        "PhoneNumber":"112",
+        "Address": "38 Yên Bái"
+    },
+
+    {
+        "Id": 1,
+        "Name": "Công Khanh",
+        "Email": "nduy199991@gmail.com",
+        "PhoneNumber":"113",
+        "Address": "38 Yên Bái"
+    }
+]
