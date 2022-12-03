@@ -2,24 +2,36 @@
     {
         "Id": 1,
         "Name": "CPU",
+        "Price":"120$",
+        "Discount":"20%",
+        "Stock":"1",
         "Description": "Các loại CPU cho máy tính"
     },
 
     {
         "Id": 2,
         "Name": "RAM",
+        "Price":"25$",
+        "Discount":"10%",
+        "Stock":"3",
         "Description": "Các loại RAM cho máy tính"
     },
 
     {
         "Id": 3,
         "Name": "MainBoard",
+        "Price":"200$",
+        "Discount":"15%",
+        "Stock":"0",
         "Description": "Các loại MainBoard cho máy tính"
     },
 
     {
-        "Id": 1,
+        "Id": 4,
         "Name": "SSD",
+        "Price":"30$",
+        "Discount":"5%",
+        "Stock":"4",
         "Description": "Các loại SSD cho máy tính"
     }
 ]
