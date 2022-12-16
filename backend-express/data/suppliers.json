@@ -1,33 +1,30 @@
 [
-    {
-        "Id": 1,
-        "Name": "Nhất Duy",
-        "Email": "nduy191@gmail.com",
-        "PhoneNumber":"110",
-        "Address": "38 Yên Bái"
-    },
-
-    {
-        "Id": 2,
-        "Name": "Văn Công",
-        "Email": "nduy1991@gmail.com",
-        "PhoneNumber":"111",
-        "Address": "38 Yên Bái"
-    },
-
-    {
-        "Id": 3,
-        "Name": "Hùng Mạnh",
-        "Email": "nduy19991@gmail.com",
-        "PhoneNumber":"112",
-        "Address": "38 Yên Bái"
-    },
-
-    {
-        "Id": 1,
-        "Name": "Công Khanh",
-        "Email": "nduy199991@gmail.com",
-        "PhoneNumber":"113",
-        "Address": "38 Yên Bái"
-    }
+  {
+    "id": 1,
+    "name": "Nhất Duy",
+    "email": "nduy191@gmail.com",
+    "phoneNumber": "0905 528 944",
+    "address": "Diamond Island"
+  },
+  {
+    "id": 2,
+    "name": "Văn Công",
+    "email": "vancong19@gmail.com",
+    "phoneNumber": "0905 571 944",
+    "address": "Diamond Island"
+  },
+  {
+    "id": 3,
+    "name": "Hùng Mạnh",
+    "email": "hungmanh81@gmail.com",
+    "phoneNumber": "0905 768 734",
+    "address": "Diamond Island"
+  },
+  {
+    "id": 4,
+    "name": "Công Khanh",
+    "email": "phancongkhanhofficial@gmail.com",
+    "phoneNumber": "0907 666 666",
+    "address": "Diamond Island"
+  }
 ]

@@ -2,24 +2,24 @@ var express = require('express');
 var router = express.Router();
 var { write } = require('../helpers/fileHelper');
 
-const products = require('../data/products.json');
-const fileName = './data/products.json';
+const suppliers = require('../data/suppliers.json');
+const fileName = './data/suppliers.json';
 const nanoid = require('nanoid');
 
 /* GET */
 router.get('/', function (req, res, next) {
-  res.send(products);
+  res.send(suppliers);
 });
 
 /* GET (PARAMS) */
 router.get('/:id', function (req, res, next) {
   const { id } = req.params;
-  const found = products.find((p) => {
+  const found = suppliers.find((p) => {
     return p.id == id;
   });
 
   if (!found) {
-    return res.status(404).json({ message: 'Not Found Products' });
+    return res.status(404).json({ message: 'Not Found Suppliers' });
   }
 
   res.send(found);
@@ -40,12 +40,12 @@ router.post('/', function (req, res, next) {
 
   data.id = nanoid()
   console.log('Data : ', data);
-  products.push(data);
+  suppliers.push(data);
 
   // Save to file
-  write(fileName, products);
+  write(fileName, suppliers);
 
-  res.sendStatus(201).json({ message: 'Product Successfully Create' });
+  res.sendStatus(201).json({ message: 'Successfully Create' });
 });
 
 /* PATCH */
@@ -55,7 +55,7 @@ router.patch('/:id', function (req, res, next) {
   console.log('Data : ', data);
 
   // Tìm data để sửa
-  let found = products.find((p) => {
+  let found = suppliers.find((p) => {
     return p.id == id;
   });
 
@@ -68,36 +68,35 @@ router.patch('/:id', function (req, res, next) {
     }
 
     // Save to file
-    write(fileName, products);
+    write(fileName, suppliers);
 
     // database
     //  code here ...
 
-    return res.sendStatus(200).json({ message: 'Product Successfully Updated' });
+    return res.sendStatus(200).json({ message: 'Successfully Updated' });
   }
 
-  return res.status(404).json({ message: 'Not Found Product' });
+  return res.status(404).json({ message: 'Not Found Supplier' });
 });
 
 /* DELETE (PARAMS) */
 router.delete('/:id', function (req, res, next) {
   const { id } = req.params;
-  const found = products.find((p) => {
-    return p.id == id;
-  });
+  const found = suppliers.find((p) => {
+    return p.id == id;});
 
   if (!found) {
-    return res.status(404).json({ message: 'Not Found Product' });
+    return res.status(404).json({ message: 'Not Found Supplier' });
   }
 
-  let remainData = products.filter((p) => {
+  let remainData = suppliers.filter((p) => {
     return p.id != id;
   });
 
   // Save to file
   write(fileName, remainData);
 
-  res.sendStatus(200).json({ message: 'Product Successfully Delete' });
+  res.sendStatus(200).json({ message: 'Successfully Delete' });
 });
 
 module.exports = router;

@@ -1,41 +1,41 @@
 [
     {
-        "Id": 1,
-        "FirstName": "Nhất Duy",
-        "LastName": "Nguyễn",
-        "Email": "nduy191@gmail.com",
-        "PhoneNumber":"110",
-        "Address": "38 Yên Bái",
-        "Birthday": "24/09/2000"
+        "id": 1,
+        "firstName": "Hữu Nhất Duy",
+        "lastName": "Nguyễn",
+        "email": "nduy191@gmail.com",
+        "phoneNumber":"0905 528 944",
+        "address": "38 Yên bái",
+        "birthday": "24/09/2000"
+    },
+
+    {       
+        "id": 2,
+        "firstName": "Văn Công",
+        "lastName": "Lý",
+        "email": "vancong19@gmail.com",
+        "phoneNumber":"0905 768 734",
+        "address": "38 Yên bái",
+        "birthday": "05/06/2002"
     },
 
     {
-        "Id": 2,
-        "FirstName": "Văn Công",
-        "LastName": "Lý",
-        "Email": "nduy1991@gmail.com",
-        "PhoneNumber":"111",
-        "Address": "38 Yên Bái",
-        "Birthday": "05/06/2002"
+        "id": 3,
+        "firstName": "Hùng Mạnh",
+        "lastName": "phạm",
+        "email": "hungmanh81@gmail.com",
+        "phoneNumber":"0905 571 944",
+        "address": "38 Yên bái",
+        "birthday": "14/08/1999"
     },
 
     {
-        "Id": 3,
-        "FirstName": "Hùng Mạnh",
-        "LastName": "Phạm",
-        "Email": "nduy19991@gmail.com",
-        "PhoneNumber":"112",
-        "Address": "38 Yên Bái",
-        "Birthday": "14/08/1999"
-    },
-
-    {
-        "Id": 1,
-        "FirstName": "Công Khanh",
-        "LastName": "Phan",
-        "Email": " phancongkhanhofficial@gmail.com",
-        "PhoneNumber":"0907 666666",
-        "Address": "38 Yên Bái",
-        "Birthday": "24/03/1994"
+        "id": 4,
+        "firstName": "Công Khanh",
+        "lastName": "Phan",
+        "email": "phancongkhanhofficial@gmail.com",
+        "phoneNumber":"0907 666 666",
+        "address": "38 Yên bái",
+        "birthday": "24/03/1994"
     }
 ]
