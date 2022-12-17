@@ -1,1 +1,90 @@
-[{"id":1,"name":"CPU","price":"120$","discount":"20%","stock":"1","description":"Các loại CPU cho máy tính"},{"id":2,"name":"RAM","price":"25$","discount":"10%","stock":"3","description":"Các loại RAM cho máy tính"},{"id":3,"name":"MainBoard","price":"200$","discount":"15%","stock":"0","description":"Các loại MainBoard cho máy tính"},{"id":4,"name":"SSD","price":"30$","discount":"5%","stock":"4","description":"Các loại SSD cho máy tính"},{"id":5,"name":"HDD","price":"25$","discount":"15%","stock":"6","description":"Các loại HDD cho máy tính"},{"id":"6","name":"Power Color","price":"350$","discount":"20%","stock":"5","description":"Các loại Power Color cho máy tính"},{"name":"Power PC","price":"100$","discount":"10%","stock":"2","description":"Các loại Power PC cho máy tính","id":"8ozuaFaFcnSikzmq-jgYG"},{"name":"Fan Leg RGB","price":"10$","discount":"0%","stock":"50","description":"Các loại Fan Leg RGB cho máy tính","id":"Um0PEw7-z5MRzJ5Je_7JK"},{"name":"Case PC","price":"50$","discount":"15%","stock":"35","description":"Các loại Case PC cho máy tính","id":"mEFFMr7eAF-OfEHqK4ET8"},{"name":"Display Cable","price":"5$","discount":"5%","stock":"55","description":"Các loại Display Cable cho máy tính","id":"h2oGkSDV8omnoJXWhEs-R"},{"name":"Window Tool","price":"150$","discount":"10%","stock":"100","description":"Window Tool cho máy tính","id":"Nm4DxRgnP3IoraE4PXase"}]
+[
+  {
+    "id": 1,
+    "name": "CPU",
+    "price": "120$",
+    "discount": "20%",
+    "stock": "1",
+    "description": "Các loại CPU cho máy tính"
+  },
+  {
+    "id": 2,
+    "name": "RAM",
+    "price": "25$",
+    "discount": "10%",
+    "stock": "3",
+    "description": "Các loại RAM cho máy tính"
+  },
+  {
+    "id": 3,
+    "name": "MainBoard",
+    "price": "200$",
+    "discount": "15%",
+    "stock": "0",
+    "description": "Các loại MainBoard cho máy tính"
+  },
+  {
+    "id": 4,
+    "name": "SSD",
+    "price": "30$",
+    "discount": "5%",
+    "stock": "4",
+    "description": "Các loại SSD cho máy tính"
+  },
+  {
+    "id": 5,
+    "name": "HDD",
+    "price": "25$",
+    "discount": "15%",
+    "stock": "6",
+    "description": "Các loại HDD cho máy tính"
+  },
+  {
+    "id": "6",
+    "name": "Power Color",
+    "price": "350$",
+    "discount": "20%",
+    "stock": "5",
+    "description": "Các loại Power Color cho máy tính"
+  },
+  {
+    "name": "Power PC",
+    "price": "100$",
+    "discount": "10%",
+    "stock": "2",
+    "description": "Các loại Power PC cho máy tính",
+    "id": "8ozuaFaFcnSikzmq-jgYG"
+  },
+  {
+    "name": "Fan Leg RGB",
+    "price": "10$",
+    "discount": "0%",
+    "stock": "50",
+    "description": "Các loại Fan Leg RGB cho máy tính",
+    "id": "Um0PEw7-z5MRzJ5Je_7JK"
+  },
+  {
+    "name": "Case PC",
+    "price": "50$",
+    "discount": "15%",
+    "stock": "35",
+    "description": "Các loại Case PC cho máy tính",
+    "id": "mEFFMr7eAF-OfEHqK4ET8"
+  },
+  {
+    "name": "Display Cable",
+    "price": "5$",
+    "discount": "5%",
+    "stock": "55",
+    "description": "Các loại Display Cable cho máy tính",
+    "id": "h2oGkSDV8omnoJXWhEs-R"
+  },
+  {
+    "name": "Window Tool",
+    "price": "150$",
+    "discount": "10%",
+    "stock": "100",
+    "description": "Window Tool cho máy tính",
+    "id": "Nm4DxRgnP3IoraE4PXase"
+  }
+]
