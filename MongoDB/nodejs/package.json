@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "mongodb": "^4.12.1",
-    "mongoose": "^6.8.0"
+    "mongoose": "^6.8.0",
+    "mongoose-lean-virtuals": "^0.9.1"
   }
 }
