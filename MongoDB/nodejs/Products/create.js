@@ -10,7 +10,8 @@ try {
     price: 200,
     stock: 100,
     discount: 0,
-    categoryId: '6364f9f30486025f375b5942',
+    categoryId: '63a558a0e282d4d7944dabb7',
+    supplierId: '63a564944573bc5f7dd8672f',
   };
 
   const newItem = new Product(data);

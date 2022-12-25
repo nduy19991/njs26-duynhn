@@ -5,10 +5,9 @@ const { Product } = require('../models');
 mongoose.connect('mongodb://127.0.0.1:27017/Test'); 
 
 try {
-  Product.find({
-    stock: 10,
-  })
+  Product.find({})
     .populate('category')
+    .populate('supplier')
     .then((result) => {
       console.log(result);
     });
