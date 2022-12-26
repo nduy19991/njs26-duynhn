@@ -6,12 +6,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/Test');
 
 try {
   const data = {
-    name: 'Áo sơ mi',
-    price: 200,
+    name: 'Iphone 14',
+    price: 30000,
     stock: 100,
-    discount: 0,
+    discount: 15,
     categoryId: '63a558a0e282d4d7944dabb7',
-    supplierId: '63a564944573bc5f7dd8672f',
+    supplierId: '63a95b19964fbf01cf4f0d15',
   };
 
   const newItem = new Product(data);
