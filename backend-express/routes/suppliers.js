@@ -1,102 +1,98 @@
+const { default: mongoose } = require('mongoose');
+
+const { Supplier } = require('../models');
+// MONGOOSE
+mongoose.connect('mongodb://127.0.0.1:27017/Test');
+
 var express = require('express');
 var router = express.Router();
-var { write } = require('../helpers/fileHelper');
 
-const suppliers = require('../data/suppliers.json');
-const fileName = './data/suppliers.json';
-const nanoid = require('nanoid');
-
-/* GET */
+/* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.send(suppliers);
-});
-
-/* GET (PARAMS) */
-router.get('/:id', function (req, res, next) {
-  const { id } = req.params;
-  const found = suppliers.find((p) => {
-    return p.id == id;
-  });
-
-  if (!found) {
-    return res.status(404).json({ message: 'Not Found Suppliers' });
+  try {
+    Supplier.find()
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
   }
-
-  res.send(found);
 });
 
-// GET (MANY PARAMS)
-// router.get('/:id/:name/search/:price', function (req, res, next) {
-//   const { id, name } = req.params;
-//   // const id = req.params.id;
-//   // const name = req.params.name;
-//   // const price = req.params.price;
-//   res.send('OK');
-// });
+/* GET users listing. */
+router.get('/:id', function (req, res, next) {
+  try {
+    const { id } = req.params;
+    Supplier.findById(id)
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
 
 /* POST */
 router.post('/', function (req, res, next) {
-  const data = req.body;
+  try {
+    const data = req.body;
 
-  data.id = nanoid()
-  console.log('Data : ', data);
-  suppliers.push(data);
+    const newItem = new Supplier(data);
 
-  // Save to file
-  write(fileName, suppliers);
-
-  res.sendStatus(201).json({ message: 'Successfully Create' });
+    newItem
+      .save()
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
+  }
 });
 
-/* PATCH */
+// PATCH
 router.patch('/:id', function (req, res, next) {
-  const { id } = req.params;
-  const data = req.body;
-  console.log('Data : ', data);
+  try {
+    const { id } = req.params;
+    const data = req.body;
 
-  // Tìm data để sửa
-  let found = suppliers.find((p) => {
-    return p.id == id;
-  });
-
-  if (found) {
-    // Cập nhật data gì?
-    for (let x in found) {
-      if (data[x]) {
-        found[x] = data[x];
-      }
-    }
-
-    // Save to file
-    write(fileName, suppliers);
-
-    // database
-    //  code here ...
-
-    return res.sendStatus(200).json({ message: 'Successfully Updated' });
+    Supplier.findByIdAndUpdate(id, data, {
+      new: true,
+    })
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (error) {
+    res.sendStatus(500);
   }
-
-  return res.status(404).json({ message: 'Not Found Supplier' });
 });
 
-/* DELETE (PARAMS) */
+// DELETE
 router.delete('/:id', function (req, res, next) {
-  const { id } = req.params;
-  const found = suppliers.find((p) => {
-    return p.id == id;});
-
-  if (!found) {
-    return res.status(404).json({ message: 'Not Found Supplier' });
+  try {
+    const { id } = req.params;
+    Supplier.findByIdAndDelete(id)
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
   }
-
-  let remainData = suppliers.filter((p) => {
-    return p.id != id;
-  });
-
-  // Save to file
-  write(fileName, remainData);
-
-  res.sendStatus(200).json({ message: 'Successfully Delete' });
 });
 
 module.exports = router;
