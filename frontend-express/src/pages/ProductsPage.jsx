@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Form, Input, Button, Table, Space, Modal } from "antd";
+import numeral from "numeral";
 
 function ProductsPage() {
   const [refresh, setRefresh] = React.useState(0);
@@ -31,11 +32,26 @@ function ProductsPage() {
       title: "Giá sản phẩm",
       dataIndex: "price",
       key: "price",
+      width: "1%",
+      render: (text, record, index) => {
+        return (
+          <div style={{ textAlign: "right" }}>
+            <span>{numeral(text).format('$0,0')}</span>
+          </div>
+        );
+      },
     },
     {
       title: "Miễn giảm",
       dataIndex: "discount",
       key: "discount",
+      render: (text, record, index) => {
+        return (
+          <div style={{ textAlign: "right" }}>
+            <span>{numeral(text).format('0,0')}%</span>
+          </div>
+        );
+      },
     },
     {
       title: "Tồn kho",
@@ -126,7 +142,7 @@ function ProductsPage() {
         }}
         onFinish={onFinish}
       >
-        {/* FIRST NAME */}
+        {/* NAME */}
         <Form.Item
           label="Tên"
           name="name"
@@ -140,7 +156,7 @@ function ProductsPage() {
           <Input />
         </Form.Item>
 
-        {/* LAST NAME */}
+        {/* PRICE */}
         <Form.Item
           label="Giá"
           name="price"
