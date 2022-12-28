@@ -1,13 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { Form, Input, Button, Table, Space, Modal } from "antd";
-import numeral from "numeral";
 
-function CustomersPage() {
+function EmployeesPage() {
   const [refresh, setRefresh] = React.useState(0);
-  const [Customers, setCustomers] = React.useState([]);
+  const [Employees, setEmployees] = React.useState([]);
   const [editModalVisible, setEditModalVisible] = React.useState(false);
-  const [selectedCustomer, setSelectedCustomer] = React.useState(null);
+  const [selectedEmployee, setSelectedEmployee] = React.useState(null);
 
   // COLUMNS OF ANTD TABLE
   const columns = [
@@ -32,7 +31,7 @@ function CustomersPage() {
       title: "Tên",
       dataIndex: "lastName",
       key: "lastName",
-      width: "1%",
+      width: "5%",
     },
     {
       title: "Họ và tên",
@@ -66,8 +65,8 @@ function CustomersPage() {
       render: (text, record, index) => {
         return (
           <Space>
-            <Button onClick={() => selectCustomer(record)}>Sửa</Button>
-            <Button onClick={() => deleteCustomer(record.id)}>Xoá</Button>
+            <Button onClick={() => selectEmployee(record)}>Sửa</Button>
+            <Button onClick={() => deleteEmployee(record._id)}>Xoá</Button>
           </Space>
         );
       },
@@ -75,16 +74,16 @@ function CustomersPage() {
   ];
 
   React.useEffect(() => {
-    axios.get("http://localhost:9000/customers").then((response) => {
+    axios.get("http://localhost:9000/employees").then((response) => {
       // console.log(response.data);
-      setCustomers(response.data);
+      setEmployees(response.data);
     });
   }, [refresh]);
 
   const onFinish = (values) => {
     console.log(values);
     // CODE ANH CALL API TO HERE
-    axios.post("http://localhost:9000/customers", values).then((response) => {
+    axios.post("http://localhost:9000/employees", values).then((response) => {
       if (response.status === 201) {
         createForm.resetFields();
         setRefresh((f) => f + 1);
@@ -92,17 +91,17 @@ function CustomersPage() {
     });
   };
 
-  const deleteCustomer = (id) => {
-    axios.delete("http://localhost:9000/customers/" + id).then((response) => {
+  const deleteEmployee = (_id) => {
+    axios.delete("http://localhost:9000/employees/" + _id).then((response) => {
       if (response.status === 200) {
         setRefresh((f) => f + 1);
       }
     });
   };
 
-  const selectCustomer = (data) => {
+  const selectEmployee = (data) => {
     setEditModalVisible(true);
-    setSelectedCustomer(data);
+    setSelectedEmployee(data);
     updateForm.setFieldsValue(data);
     console.log(data);
   };
@@ -111,7 +110,7 @@ function CustomersPage() {
     console.log(values);
     // CODE ANH CALL API TO HERE
     axios
-      .patch("http://localhost:9000/customers/" + selectedCustomer.id, values)
+      .patch("http://localhost:9000/employees/" + selectedEmployee.id, values)
       .then((response) => {
         if (response.status === 200) {
           updateForm.resetFields();
@@ -129,7 +128,7 @@ function CustomersPage() {
       {/* CREATE FORM */}
       <Form
         form={createForm}
-        name="create-Customer"
+        name="create-Employee"
         labelCol={{
           span: 8,
         }}
@@ -145,7 +144,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập họ khách hàng",
+              message: "Vui lònng nhập họ nhân viên",
             },
           ]}
         >
@@ -159,7 +158,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tên khách hàng",
+              message: "Vui lònng nhập tên nhân viên",
             },
           ]}
         >
@@ -191,7 +190,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập số điện thoại khách hàng",
+              message: "Vui lònng nhập số điện thoại nhân viên",
             },
           ]}
         >
@@ -205,7 +204,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ khách hàng",
+              message: "Vui lònng nhập địa chỉ nhân viên",
             },
           ]}
         >
@@ -219,7 +218,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập ngày sinh khách hàng",
+              message: "Vui lònng nhập ngày sinh nhân viên",
             },
           ]}
         >
@@ -241,8 +240,8 @@ function CustomersPage() {
 
       {/* TABLE */}
       <Table
-        rowKey={"id"}
-        dataSource={Customers}
+        rowKey={"_id"}
+        dataSource={Employees}
         columns={columns}
         pagination={false}
       />
@@ -262,7 +261,7 @@ function CustomersPage() {
       >
         <Form
           form={updateForm}
-          name="update-Customer"
+          name="update-Employee"
           labelCol={{
             span: 8,
           }}
@@ -278,7 +277,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập họ khách hàng",
+              message: "Vui lònng nhập họ nhân viên",
             },
           ]}
         >
@@ -292,7 +291,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tên khách hàng",
+              message: "Vui lònng nhập tên nhân viên",
             },
           ]}
         >
@@ -324,7 +323,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập số điện thoại khách hàng",
+              message: "Vui lònng nhập số điện thoại nhân viên",
             },
           ]}
         >
@@ -338,7 +337,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ khách hàng",
+              message: "Vui lònng nhập địa chỉ nhân viên",
             },
           ]}
         >
@@ -352,7 +351,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập ngày sinh khách hàng",
+              message: "Vui lònng nhập ngày sinh nhân viên",
             },
           ]}
         >
@@ -364,4 +363,4 @@ function CustomersPage() {
   );
 }
 
-export default CustomersPage;
+export default EmployeesPage;

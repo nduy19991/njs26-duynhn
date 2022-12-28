@@ -48,7 +48,7 @@ router.post('/', function (req, res, next) {
     newItem
       .save()
       .then((result) => {
-        res.send(result);
+        res.status(201).send(result);
       })
       .catch((err) => {
         console.log(err);
@@ -85,6 +85,7 @@ router.delete('/:id', function (req, res, next) {
     const { id } = req.params;
     Category.findByIdAndDelete(id)
       .then((result) => {
+        console.log(id)
         res.send(result);
       })
       .catch((err) => {

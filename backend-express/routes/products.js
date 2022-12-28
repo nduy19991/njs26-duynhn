@@ -96,5 +96,89 @@ router.delete('/:id', function (req, res, next) {
     res.sendStatus(500);
   }
 });
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 1
+// ------------------------------------------------------------------------------------------------
+// https://www.mongodb.com/docs/manual/reference/operator/query/
+router.get('/questions/1', function (req, res, next) {
+  try {
+    let query = { discount: { $lte: 10 } };
+    Product.find(query)
+
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 1b
+// ------------------------------------------------------------------------------------------------
+// https://www.mongodb.com/docs/manual/reference/operator/query/
+router.get('/questions/1b', function (req, res, next) {
+  try {
+    let query = { discount: { $lte: 10 } };
+    Product.find(query)
+      .populate('category')
+      .populate('supplier')
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 2
+// ------------------------------------------------------------------------------------------------
+// https://www.mongodb.com/docs/manual/reference/operator/query/
+router.get('/questions/2', function (req, res, next) {
+  try {
+    let query = { stock: { $lte: 5 } };
+    Product.find(query)
+      // .populate('category')
+      // .populate('supplier')
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 3
+// ------------------------------------------------------------------------------------------------
+router.get('/questions/3', async (req, res, next) => {
+  try { 
+    // let finalPrice = price * (100 - discount) / 100;
+    const s = { $subtract: [100, '$discount'] }; // (100 - 5)
+    const m = { $multiply: ['$price', s] }; // price * 95
+    const d = { $divide: [m, 100] }; // price * 95 / 100
+
+    let aggregate = [{ $match: { $expr: { $lte: [d, 22000] } } }];
+    Product.aggregate(aggregate)
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 module.exports = router;

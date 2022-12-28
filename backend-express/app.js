@@ -7,6 +7,7 @@ var logger = require('morgan');
 const cors = require('cors');
 
 var productsRouter = require('./routes/products');
+var categoriesRouter = require('./routes/categories');
 var customersRouter = require('./routes/customers');
 var suppliersRouter = require('./routes/suppliers');
 var employeesRouter = require('./routes/employees');
@@ -36,6 +37,7 @@ app.use('/customers', customersRouter);
 app.use('/suppliers', suppliersRouter);
 app.use('/employees', employeesRouter);
 app.use('/orders', ordersRouter);
+app.use('/categories', categoriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

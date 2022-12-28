@@ -27,9 +27,10 @@ function ProductsPage() {
       title: "Tên sản phẩm",
       dataIndex: "name",
       key: "name",
+      width: "15%",
     },
     {
-      title: "Giá sản phẩm",
+      title: "Giá gốc",
       dataIndex: "price",
       key: "price",
       width: "1%",
@@ -45,10 +46,24 @@ function ProductsPage() {
       title: "Miễn giảm",
       dataIndex: "discount",
       key: "discount",
+      width: "6%",
       render: (text, record, index) => {
         return (
           <div style={{ textAlign: "right" }}>
             <span>{numeral(text).format('0,0')}%</span>
+          </div>
+        );
+      },
+    },
+    {
+      title: "Thành tiền",
+      dataIndex: "total",
+      key: "total",
+      width: "6%",
+      render: (text, record, index) => {
+        return (
+          <div style={{ textAlign: "right" }}>
+            <span>{numeral(text).format('$0,0')}</span>
           </div>
         );
       },
@@ -64,6 +79,11 @@ function ProductsPage() {
       key: "description",
     },
     {
+      title: "Nhà cung cấp",
+      dataIndex: "supplierId",
+      key: "supplierId",
+    },
+    {
       title: "",
       key: "actions",
       width: "1%",
@@ -71,7 +91,7 @@ function ProductsPage() {
         return (
           <Space>
             <Button onClick={() => selectProduct(record)}>Sửa</Button>
-            <Button onClick={() => deleteProduct(record.id)}>Xoá</Button>
+            <Button onClick={() => deleteProduct(record._id)}>Xoá</Button>
           </Space>
         );
       },
@@ -96,8 +116,8 @@ function ProductsPage() {
     });
   };
 
-  const deleteProduct = (id) => {
-    axios.delete("http://localhost:9000/products/" + id).then((response) => {
+  const deleteProduct = (_id) => {
+    axios.delete("http://localhost:9000/products/" + _id).then((response) => {
       if (response.status === 200) {
         setRefresh((f) => f + 1);
       }
@@ -115,7 +135,7 @@ function ProductsPage() {
     console.log(values);
     // CODE ANH CALL API TO HERE
     axios
-      .patch("http://localhost:9000/products/" + selectedProduct.id, values)
+      .patch("http://localhost:9000/products/" + selectedProduct._id, values)
       .then((response) => {
         if (response.status === 200) {
           updateForm.resetFields();
@@ -133,7 +153,7 @@ function ProductsPage() {
       {/* CREATE FORM */}
       <Form
         form={createForm}
-        name="create-product"
+        name="create-Product"
         labelCol={{
           span: 8,
         }}
@@ -227,7 +247,7 @@ function ProductsPage() {
 
       {/* TABLE */}
       <Table
-        rowKey={"id"}
+        rowKey={"_id"}
         dataSource={products}
         columns={columns}
         pagination={false}
