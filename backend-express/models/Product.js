@@ -16,7 +16,6 @@ const productSchema = Schema(
     stock: { type: Number, min: 0, default: 0 },
     categoryId: { type: Schema.Types.ObjectId, ref: 'Category', required: false },
     supplierId: { type: Schema.Types.ObjectId, ref: 'Supplier', required: false },
-    description: { type: String, required: true },
   },
   {
     versionKey: false,

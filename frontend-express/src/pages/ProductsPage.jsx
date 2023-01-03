@@ -1,97 +1,132 @@
-import React from "react";
-import axios from "axios";
-import { Form, Input, Button, Table, Space, Modal } from "antd";
-import numeral from "numeral";
+import axios from 'axios';
+import React from 'react';
+import { Button, Form, Input, InputNumber, Select, Modal, Space, Table, Popconfirm } from 'antd';
+import { DeleteOutlined, EditOutlined, UploadOutlined } from '@ant-design/icons';
+import numeral from 'numeral';
 
-function ProductsPage() {
+export default function ProductPage() {
   const [refresh, setRefresh] = React.useState(0);
-  const [products, setProducts] = React.useState([]);
   const [editModalVisible, setEditModalVisible] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState(null);
 
-  // COLUMNS OF ANTD TABLE
+  const [categories, setCategories] = React.useState([]);
+  const [suppliers, setSuppliers] = React.useState([]);
+  const [products, setProducts] = React.useState([]);
+
+  // Columns of Antd Table
   const columns = [
     {
-      title: "TT",
-      key: "no",
-      width: "1%",
+      title: 'TT',
+      key: 'no',
+      width: '1%',
       render: (text, record, index) => {
         return (
-          <div style={{ textAlign: "right" }}>
+          <div style={{ textAlign: 'right' }}>
             <span>{index + 1}</span>
           </div>
         );
       },
     },
+
     {
-      title: "Tên sản phẩm",
-      dataIndex: "name",
-      key: "name",
-      width: "15%",
-    },
-    {
-      title: "Giá gốc",
-      dataIndex: "price",
-      key: "price",
-      width: "1%",
+      title: 'Danh mục',
+      dataIndex: 'category',
+      key: 'category',
+      width: '1%',
       render: (text, record, index) => {
         return (
-          <div style={{ textAlign: "right" }}>
-            <span>{numeral(text).format('$0,0')}</span>
+          <div style={{ whiteSpace: 'nowrap' }}>
+            <span>{record.category.name}</span>
+          </div>
+        );
+      },
+    },
+
+    {
+      title: () => {
+        return <div style={{ whiteSpace: 'nowrap' }}>Nhà cung cấp</div>;
+      },
+      dataIndex: 'supplier',
+      key: 'supplier',
+      width: '1%',
+      render: (text, record, index) => {
+        return (
+          <div style={{ whiteSpace: 'nowrap' }}>
+            <span>{record.supplier.name}</span>
           </div>
         );
       },
     },
     {
-      title: "Miễn giảm",
-      dataIndex: "discount",
-      key: "discount",
-      width: "6%",
+      title: 'Tên sản phẩm',
+      key: 'name',
+      dataIndex: 'name',
       render: (text, record, index) => {
         return (
-          <div style={{ textAlign: "right" }}>
-            <span>{numeral(text).format('0,0')}%</span>
+          <div>
+            <strong>{text}</strong>
           </div>
         );
       },
     },
     {
-      title: "Thành tiền",
-      dataIndex: "total",
-      key: "total",
-      width: "6%",
+      title: 'Giá bán',
+      dataIndex: 'price',
+      key: 'price',
+      width: '1%',
       render: (text, record, index) => {
         return (
-          <div style={{ textAlign: "right" }}>
-            <span>{numeral(text).format('$0,0')}</span>
+          <div style={{ textAlign: 'right' }}>
+            <strong>{numeral(text).format('0,0$')}</strong>
           </div>
         );
       },
     },
     {
-      title: "Tồn kho",
-      dataIndex: "stock",
-      key: "stock",
+      title: 'Giảm',
+      dataIndex: 'discount',
+      key: 'discount',
+      width: '1%',
+      render: (text, record, index) => {
+        return (
+          <div style={{ textAlign: 'right' }}>
+            <strong>{numeral(text).format('0,0')}%</strong>
+          </div>
+        );
+      },
     },
     {
-      title: "Mô tả",
-      dataIndex: "description",
-      key: "description",
+      title: 'Tồn',
+      dataIndex: 'stock',
+      key: 'stock',
+      width: '1%',
+      render: (text, record, index) => {
+        return (
+          <div style={{ textAlign: 'right' }}>
+            <strong>{numeral(text).format('0,0')}</strong>
+          </div>
+        );
+      },
     },
     {
-      title: "Nhà cung cấp",
-      dataIndex: "supplierId",
-      key: "supplierId",
-    },
-    {
-      title: "",
-      key: "actions",
-      width: "1%",
+      title: '',
+      key: 'actions',
+      width: '1%',
       render: (text, record, index) => {
         return (
           <Space>
-            <Button onClick={() => selectProduct(record)}>Sửa</Button>
-            <Button onClick={() => deleteProduct(record._id)}>Xoá</Button>
+            <Button type='dashed' icon={<EditOutlined />} onClick={() => selectProduct(record)} />
+
+            <Popconfirm
+              title='Are you sure to delete?'
+              okText='Đồng ý'
+              cancelText='Đóng'
+              onConfirm={() => {
+                deleteProduct(record._id);
+              }}
+            >
+              <Button danger type='dashed' icon={<DeleteOutlined />} />
+            </Popconfirm>
           </Space>
         );
       },
@@ -99,26 +134,47 @@ function ProductsPage() {
   ];
 
   React.useEffect(() => {
-    axios.get("http://localhost:9000/products").then((response) => {
+    axios.get('http://localhost:9000/suppliers').then((response) => {
+      setSuppliers(response.data);
       // console.log(response.data);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    axios.get('http://localhost:9000/categories').then((response) => {
+      setCategories(response.data);
+      // console.log(response.data);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    axios.get('http://localhost:9000/products').then((response) => {
       setProducts(response.data);
+      // console.log(response.data);
     });
   }, [refresh]);
 
   const onFinish = (values) => {
     console.log(values);
-    // CODE ANH CALL API TO HERE
-    axios.post("http://localhost:9000/products", values).then((response) => {
+    // CODE HERE ...
+    // CALL API TO CREATE CUSTOMER
+    axios.post('http://localhost:9000/products', values).then((response) => {
       if (response.status === 201) {
         createForm.resetFields();
         setRefresh((f) => f + 1);
       }
+      console.log(response.data);
     });
   };
 
-  const deleteProduct = (_id) => {
-    axios.delete("http://localhost:9000/products/" + _id).then((response) => {
+  const onEditFinish = (values) => {
+    console.log(values);
+    // CODE HERE ...
+    // CALL API TO CREATE CUSTOMER
+    axios.patch('http://localhost:9000/products/' + selectedProduct.id, values).then((response) => {
       if (response.status === 200) {
+        updateForm.resetFields();
+        setEditModalVisible(false);
         setRefresh((f) => f + 1);
       }
     });
@@ -131,18 +187,11 @@ function ProductsPage() {
     console.log(data);
   };
 
-  const onEditFinish = (values) => {
-    console.log(values);
-    // CODE ANH CALL API TO HERE
-    axios
-      .patch("http://localhost:9000/products/" + selectedProduct._id, values)
-      .then((response) => {
-        if (response.status === 200) {
-          updateForm.resetFields();
-          setEditModalVisible(false);
-          setRefresh((f) => f + 1);
-        }
-      });
+  const deleteProduct = (id) => {
+    axios.delete('http://localhost:9000/products/' + id).then((response) => {
+      console.log(response);
+      setRefresh((f) => f + 1);
+    });
   };
 
   const [createForm] = Form.useForm();
@@ -150,26 +199,72 @@ function ProductsPage() {
 
   return (
     <div>
-      {/* CREATE FORM */}
+      {/* CREATE FORM  */}
       <Form
         form={createForm}
-        name="create-Product"
+        name='create-product'
         labelCol={{
           span: 8,
         }}
         wrapperCol={{
-          span: 8,
+          span: 16,
         }}
         onFinish={onFinish}
       >
-        {/* NAME */}
         <Form.Item
-          label="Tên"
-          name="name"
+          label='Danh mục sản phẩm'
+          name='categoryId'
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tên sản phẩm",
+              message: 'Please input product categpry!',
+            },
+          ]}
+        >
+          <Select
+            options={
+              categories &&
+              categories.map((c) => {
+                return {
+                  value: c._id,
+                  label: c.name,
+                };
+              })
+            }
+          />
+        </Form.Item>
+
+        <Form.Item
+          label='Nhà cung cấp'
+          name='supplierId'
+          rules={[
+            {
+              required: true,
+              message: 'Please input product supplier!',
+            },
+          ]}
+        >
+          <Select
+            options={
+              suppliers &&
+              suppliers.map((c) => {
+                return {
+                  value: c._id,
+                  label: c.name,
+                };
+              })
+            }
+          />
+        </Form.Item>
+
+        {/* NAME */}
+        <Form.Item
+          label='Tên sản phẩm'
+          name='name'
+          rules={[
+            {
+              required: true,
+              message: 'Please input product name!',
             },
           ]}
         >
@@ -178,58 +273,44 @@ function ProductsPage() {
 
         {/* PRICE */}
         <Form.Item
-          label="Giá"
-          name="price"
+          label='Giá bán'
+          name='price'
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập giá sản phẩm",
+              message: 'Please input product price!',
             },
           ]}
         >
-          <Input />
+          <InputNumber />
         </Form.Item>
 
         {/* DISCOUNT */}
         <Form.Item
-          label="Giảm giá"
-          name="discount"
+          label='Giảm (%)'
+          name='discount'
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập mức giảm giá",
+              message: 'Please input product discount!',
             },
           ]}
         >
-          <Input />
+          <InputNumber />
         </Form.Item>
 
         {/* STOCK */}
         <Form.Item
-          label="Tồn kho"
-          name="stock"
+          label='Tồn'
+          name='stock'
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập số lượng tồn",
+              message: 'Please input product stock!',
             },
           ]}
         >
-          <Input />
-        </Form.Item>
-
-        {/* DESCRIPTION */}
-        <Form.Item
-          label="Mô tả"
-          name="description"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập mô tả sản phẩm",
-            },
-          ]}
-        >
-          <Input />
+          <InputNumber min={0} />
         </Form.Item>
 
         {/* SUBMIT */}
@@ -239,117 +320,143 @@ function ProductsPage() {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button type='primary' htmlType='submit'>
             Lưu thông tin
           </Button>
         </Form.Item>
       </Form>
 
       {/* TABLE */}
-      <Table
-        rowKey={"_id"}
-        dataSource={products}
-        columns={columns}
-        pagination={false}
-      />
+      <Table rowKey='id' dataSource={products} columns={columns} pagination={false} />
 
-      {/* UPDATE FORM */}
+      {/* MODAL */}
       <Modal
         open={editModalVisible}
-        title="Cập nhật thông tin"
+        centered
+        title='Cập nhật thông tin'
         onCancel={() => {
           setEditModalVisible(false);
         }}
+        cancelText='Đóng'
+        okText='Lưu thông tin'
         onOk={() => {
           updateForm.submit();
         }}
-        cancelText="Đóng"
-        okText="Lưu thông tin"
       >
         <Form
           form={updateForm}
-          name="update-product"
+          name='update-product'
           labelCol={{
             span: 8,
           }}
           wrapperCol={{
-            span: 8,
+            span: 16,
           }}
           onFinish={onEditFinish}
         >
-          {/* FIRST NAME */}
           <Form.Item
-            label="Tên"
-            name="name"
+            label='Danh mục sản phẩm'
+            name='categoryId'
             rules={[
               {
                 required: true,
-                message: "Vui lònng nhập tên sản phẩm",
+                message: 'Please input product categpry!',
+              },
+            ]}
+          >
+            <Select
+              options={
+                categories &&
+                categories.map((c) => {
+                  return {
+                    value: c._id,
+                    label: c.name,
+                  };
+                })
+              }
+            />
+          </Form.Item>
+
+          <Form.Item
+            label='Nhà cung cấp'
+            name='supplierId'
+            rules={[
+              {
+                required: true,
+                message: 'Please input product supplier!',
+              },
+            ]}
+          >
+            <Select
+              options={
+                suppliers &&
+                suppliers.map((c) => {
+                  return {
+                    value: c._id,
+                    label: c.name,
+                  };
+                })
+              }
+            />
+          </Form.Item>
+
+          {/* NAME */}
+          <Form.Item
+            label='Tên sản phẩm'
+            name='name'
+            rules={[
+              {
+                required: true,
+                message: 'Please input product name!',
               },
             ]}
           >
             <Input />
           </Form.Item>
 
-          {/* LAST NAME */}
+          {/* PRICE */}
           <Form.Item
-            label="Giá"
-            name="price"
+            label='Giá bán'
+            name='price'
             rules={[
               {
                 required: true,
-                message: "Vui lònng nhập giá sản phẩm",
+                message: 'Please input product price!',
               },
             ]}
           >
-            <Input />
+            <InputNumber />
           </Form.Item>
 
           {/* DISCOUNT */}
           <Form.Item
-            label="Giảm giá"
-            name="discount"
+            label='Giảm (%)'
+            name='discount'
             rules={[
               {
                 required: true,
-                message: "Vui lònng nhập mức giảm giá",
+                message: 'Please input product discount!',
               },
             ]}
           >
-            <Input />
+            <InputNumber />
           </Form.Item>
 
           {/* STOCK */}
           <Form.Item
-            label="Tồn kho"
-            name="stock"
+            label='Tồn'
+            name='stock'
             rules={[
               {
                 required: true,
-                message: "Vui lònng nhập số lượng tồn",
+                message: 'Please input product stock!',
               },
             ]}
           >
-            <Input />
-          </Form.Item>
-
-          {/* DESCRIPTION */}
-          <Form.Item
-            label="Mô tả"
-            name="description"
-            rules={[
-              {
-                required: true,
-                message: "Vui lònng nhập mô tả sản phẩm",
-              },
-            ]}
-          >
-            <Input />
+            <InputNumber min={0} />
           </Form.Item>
         </Form>
       </Modal>
     </div>
   );
 }
-
-export default ProductsPage;
