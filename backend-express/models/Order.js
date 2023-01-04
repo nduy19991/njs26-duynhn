@@ -33,7 +33,7 @@ const orderSchema = new Schema({
   createdDate: {
     type: Date,
     required: true,
-    default: Date.now,
+    // default: Date.now,
   },
 
   shippedDate: {
@@ -81,6 +81,8 @@ const orderSchema = new Schema({
     },
   },
 
+  shippingAddress: String,
+  description: String,
   customerId: { type: Schema.Types.ObjectId, ref: 'Customer', required: false },
   employeeId: { type: Schema.Types.ObjectId, ref: 'Employee', required: false },
 

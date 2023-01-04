@@ -29,7 +29,9 @@ export default function ProductPage() {
     },
 
     {
-      title: 'Danh mục',
+      title: () => {
+        return <div style={{ whiteSpace: 'nowrap' }}>Danh mục</div>;
+      },
       dataIndex: 'category',
       key: 'category',
       width: '1%',

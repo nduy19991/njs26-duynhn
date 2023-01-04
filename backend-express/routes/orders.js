@@ -56,7 +56,7 @@ router.post('/', function (req, res, next) {
     newItem
       .save()
       .then((result) => {
-        res.send(result);
+        res.status(201).send(result);
       })
       .catch((err) => {
         console.log(err);
