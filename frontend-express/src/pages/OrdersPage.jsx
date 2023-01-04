@@ -22,22 +22,29 @@ function OdersPage() {
         );
       },
     },
-    // {
-    //   title: "Tên sản phẩm",
-    //   dataIndex: "orderDetails.product",
-    //   key: "product",
-    //   render: (text, record, index) => {
-    //     return (
-    //       <div style={{ whiteSpace: 'nowrap' }}>
-    //         <span>{record.orderDetails.product.name}</span>
-    //       </div>
-    //     );
-    //   },
-    // },
+    {
+      title: "Tên sản phẩm",
+      dataIndex: "productId",
+      key: "products",
+      render: (text, record, index) => {
+        return (
+          <div style={{ whiteSpace: 'nowrap' }}>
+            <span>{record.product.name}</span>
+          </div>
+        );
+      },
+    },
     {
       title: "Ngày tạo đơn",
       dataIndex: "createdDate",
       key: "createdDate",
+      render: (text, record, index) => {
+        return (
+          <div>
+            <span>{record.createdDate}</span>
+          </div>
+        );
+      },
     },
     {
       title: "Ngày giao hàng",
@@ -155,6 +162,9 @@ function OdersPage() {
 
   return (
     <div>
+      <div style={{width:'100%'}}>
+      <h1 style={{width:'13%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Đơn hàng</h1>
+      </div>
       {/* CREATE FORM */}
       <Form
         form={createForm}
@@ -414,34 +424,6 @@ function OdersPage() {
             {
               required: true,
               message: "Vui lònng nhập địa chỉ giao hàng",
-            },
-          ]}
-        >
-          
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Tên khách hàng"
-          name="customerId"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập tên khách hàng",
-            },
-          ]}
-        >
-          
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Tên nhân viên"
-          name="employeeId"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập tên nhân viên",
             },
           ]}
         >

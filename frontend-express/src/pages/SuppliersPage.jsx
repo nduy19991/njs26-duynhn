@@ -109,6 +109,9 @@ function SuppliersPage() {
 
   return (
     <div>
+      <div style={{width:'100%'}}>
+      <h1 style={{width:'17%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Nhà cung cấp</h1>
+      </div>
       {/* CREATE FORM */}
       <Form
         form={createForm}

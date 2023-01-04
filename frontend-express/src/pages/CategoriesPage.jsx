@@ -99,6 +99,9 @@ function CategoriesPage() {
 
   return (
     <div>
+      <div style={{width:'100%'}}>
+      <h1 style={{width:'13%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Phân loại</h1>
+      </div>
       {/* CREATE FORM */}
       <Form
         form={createForm}

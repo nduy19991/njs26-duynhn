@@ -14,6 +14,7 @@ router.get('/', function (req, res, next) {
       .populate('customer')
       .populate('employee')
       .populate('orderDetails.product')
+      .populate('product')
       // .populate({ path: 'orderDetails.product', populate: { path: 'category' } })
       .then((result) => {
         res.send(result);
@@ -33,7 +34,6 @@ router.get('/:id', function (req, res, next) {
     Order.findById(id)
       .populate('customer')
       .populate('employee')
-      .populate('orderDetails.product')
       // .populate({ path: 'orderDetails.product', populate: { path: 'category' } })
       .then((result) => {
         res.send(result);

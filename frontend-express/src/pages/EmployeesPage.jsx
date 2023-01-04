@@ -125,6 +125,9 @@ function EmployeesPage() {
 
   return (
     <div>
+      <div style={{width:'100%'}}>
+      <h1 style={{width:'22%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Danh sách nhân viên</h1>
+      </div>
       {/* CREATE FORM */}
       <Form
         form={createForm}

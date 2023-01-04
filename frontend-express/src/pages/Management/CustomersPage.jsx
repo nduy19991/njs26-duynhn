@@ -125,6 +125,9 @@ function CustomersPage() {
 
   return (
     <div>
+      <div style={{width:'100%'}}>
+      <h1 style={{width:'25%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Danh sách khách hàng</h1>
+      </div>
       {/* CREATE FORM */}
       <Form
         form={createForm}
