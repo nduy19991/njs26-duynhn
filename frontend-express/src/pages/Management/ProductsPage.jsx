@@ -90,7 +90,7 @@ export default function ProductPage() {
       render: (text, record, index) => {
         return (
           <div style={{ textAlign: "right" }}>
-            <strong>{numeral(text).format("0,0$")}</strong>
+            <span>{numeral(text).format("0,0$")}</span>
           </div>
         );
       },
@@ -103,7 +103,7 @@ export default function ProductPage() {
       render: (text, record, index) => {
         return (
           <div style={{ textAlign: "right" }}>
-            <strong>{numeral(text).format("0,0")}%</strong>
+            <span>{numeral(text).format("0,0")}%</span>
           </div>
         );
       },
@@ -116,10 +116,23 @@ export default function ProductPage() {
       render: (text, record, index) => {
         return (
           <div style={{ textAlign: "right" }}>
-            <strong>{numeral(text).format("0,0")}</strong>
+            <span>{numeral(text).format("0,0")}</span>
           </div>
         );
       },
+    },
+    {
+      title: "Thành tiền",
+      dataIndex: "total",
+      key: "total",
+      width: "10%",
+      render: (text, record, index) => {
+        return (
+          <div style={{ textAlign: "right" }}>
+            <strong>{numeral(text).format("0,0$")}</strong>
+          </div>
+        );
+      }
     },
     {
       title: "",
@@ -218,8 +231,17 @@ export default function ProductPage() {
 
   return (
     <div>
-      <div style={{width:'100%'}}>
-      <h1 style={{width:'13%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Sản phẩm</h1>
+      <div style={{ width: "100%" }}>
+        <h1
+          style={{
+            width: "13%",
+            margin: "auto",
+            fontSize: "35px",
+            marginBottom: "50px",
+          }}
+        >
+          Sản phẩm
+        </h1>
       </div>
       {/* CREATE FORM  */}
       <Form
@@ -354,7 +376,7 @@ export default function ProductPage() {
         dataSource={products}
         columns={columns}
         pagination={false}
-        style={{width:'70%', margin:"auto"}}
+        style={{ width: "80%", margin: "auto" }}
       />
 
       {/* MODAL */}

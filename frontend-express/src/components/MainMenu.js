@@ -36,6 +36,10 @@ const items = [
             label: 'Kiểm tra hàng tồn kho',
             key: 'sales/products/stock',
           },
+          {
+            label: 'Kiểm tra giá sản phẩm',
+            key: 'sales/products/price',
+          },
         ],
       },
       {

@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { Form, Input, Button, Table, Space, Modal } from "antd";
+import moment from 'moment';
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Table, Space, Modal, DatePicker, Popconfirm } from "antd";
 
 function OdersPage() {
   const [refresh, setRefresh] = React.useState(0);
@@ -41,7 +43,7 @@ function OdersPage() {
       render: (text, record, index) => {
         return (
           <div>
-            <span>{record.createdDate}</span>
+            <span>{moment(record.createdDate).format("DD-MM-YYYY")}</span>
           </div>
         );
       },
@@ -50,6 +52,13 @@ function OdersPage() {
       title: "Ngày giao hàng",
       dataIndex: "shippedDate",
       key: "shippedDate",
+      render: (text, record, index) => {
+        return (
+          <div>
+            <span>{moment(record.shippedDate).format("DD-MM-YYYY")}</span>
+          </div>
+        );
+      },
     },
     {
       title: "Tình trạng đơn",
@@ -102,8 +111,22 @@ function OdersPage() {
       render: (text, record, index) => {
         return (
           <Space>
-            <Button onClick={() => selectOrders(record)}>Sửa</Button>
-            <Button onClick={() => deleteOrders(record._id)}>Xoá</Button>
+            <Button
+              type="dashed"
+              icon={<EditOutlined />}
+              onClick={() => selectOrders(record)}
+            />
+
+            <Popconfirm
+              title="Are you sure to delete?"
+              okText="Đồng ý"
+              cancelText="Đóng"
+              onConfirm={() => {
+                deleteOrders(record._id);
+              }}
+            >
+              <Button danger type="dashed" icon={<DeleteOutlined />} />
+            </Popconfirm>
           </Space>
         );
       },
@@ -188,7 +211,7 @@ function OdersPage() {
             },
           ]}
         >
-          <Input />
+          <DatePicker />
         </Form.Item>
 
         <Form.Item
@@ -202,7 +225,7 @@ function OdersPage() {
           ]}
         >
           
-          <Input />
+          <DatePicker />
         </Form.Item>
 
         <Form.Item

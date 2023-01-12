@@ -154,7 +154,8 @@ router.get('/questions/3', async (req, res, next) => {
     const m = { $multiply: ['$price', s] }; // price * 95
     const d = { $divide: [m, 100] }; // price * 95 / 100
 
-    let aggregate = [{ $match: { $expr: { $lte: [d, 100000] } } }];
+    let total =req.query.price
+    let aggregate = [{ $match: { $expr: { $lte: [d, total] } } }];
     Product.aggregate(aggregate)
       .then((result) => {
         res.send(result);

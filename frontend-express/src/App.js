@@ -16,6 +16,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import MainMenu from "./components/MainMenu";
 import DiscountPage from "./pages/Sales/Products/DiscountPage";
 import StockPage from "./pages/Sales/Products/StockPage";
+import StatusPage from "./pages/Sales/Orders/StatusPage";
+import PricePage from "./pages/Sales/Products/PricePage";
 
 // numeral.locale('vi')
 numeral.locale("en-au");
@@ -49,8 +51,10 @@ function App() {
                 <Route path="/management/categories" element={<CategoriesPage />} />
                 {/* SALES */}
                 <Route path="/sales/orders" element={<OrdersPage />} />
+                <Route path="/sales/orders/status" element={<StatusPage />} />
                 <Route path="/sales/products/discount" element={<DiscountPage />} />
                 <Route path="/sales/products/stock" element={<StockPage />} />
+                <Route path="/sales/products/price" element={<PricePage />} />
 
                 {/* No Match Route */}
                 <Route path="*" element={<NotFoundPage />}></Route>

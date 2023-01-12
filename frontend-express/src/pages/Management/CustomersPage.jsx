@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { Form, Input, Button, Table, Space, Modal } from "antd";
+import moment from 'moment';
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Table, Space, Modal, DatePicker, Popconfirm,} from "antd";
 
 function CustomersPage() {
   const [refresh, setRefresh] = React.useState(0);
@@ -57,6 +59,13 @@ function CustomersPage() {
       title: "Ngày sinh",
       dataIndex: "birthday",
       key: "birthday",
+      render: (text, record, index) => {
+        return (
+          <div>
+            <span>{moment(record.birthday).format("DD-MM-YYYY")}</span>
+          </div>
+        );
+      },
     },
     {
       title: "",
@@ -65,8 +74,22 @@ function CustomersPage() {
       render: (text, record, index) => {
         return (
           <Space>
-            <Button onClick={() => selectCustomer(record)}>Sửa</Button>
-            <Button onClick={() => deleteCustomer(record._id)}>Xoá</Button>
+            <Button
+              type="dashed"
+              icon={<EditOutlined />}
+              onClick={() => selectCustomer(record)}
+            />
+
+            <Popconfirm
+              title="Are you sure to delete?"
+              okText="Đồng ý"
+              cancelText="Đóng"
+              onConfirm={() => {
+                deleteCustomer(record._id);
+              }}
+            >
+              <Button danger type="dashed" icon={<DeleteOutlined />} />
+            </Popconfirm>
           </Space>
         );
       },
@@ -225,7 +248,7 @@ function CustomersPage() {
             },
           ]}
         >
-          <Input />
+          <DatePicker />
         </Form.Item>
 
         {/* SUBMIT */}

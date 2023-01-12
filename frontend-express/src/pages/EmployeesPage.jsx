@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { Form, Input, Button, Table, Space, Modal } from "antd";
+import moment from 'moment';
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Table, Space, Modal, DatePicker, Popconfirm } from "antd";
 
 function EmployeesPage() {
   const [refresh, setRefresh] = React.useState(0);
@@ -57,6 +59,7 @@ function EmployeesPage() {
       title: "Ngày sinh",
       dataIndex: "birthday",
       key: "birthday",
+      
     },
     {
       title: "",
@@ -65,8 +68,22 @@ function EmployeesPage() {
       render: (text, record, index) => {
         return (
           <Space>
-            <Button onClick={() => selectEmployee(record)}>Sửa</Button>
-            <Button onClick={() => deleteEmployee(record._id)}>Xoá</Button>
+            <Button
+              type="dashed"
+              icon={<EditOutlined />}
+              onClick={() => selectEmployee(record)}
+            />
+
+            <Popconfirm
+              title="Are you sure to delete?"
+              okText="Đồng ý"
+              cancelText="Đóng"
+              onConfirm={() => {
+                deleteEmployee(record._id);
+              }}
+            >
+              <Button danger type="dashed" icon={<DeleteOutlined />} />
+            </Popconfirm>
           </Space>
         );
       },
@@ -225,7 +242,7 @@ function EmployeesPage() {
             },
           ]}
         >
-          <Input />
+          <DatePicker />
         </Form.Item>
 
         {/* SUBMIT */}

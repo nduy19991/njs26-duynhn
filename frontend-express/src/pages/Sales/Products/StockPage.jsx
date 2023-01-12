@@ -71,7 +71,7 @@ export default function StockPage() {
       render: (text, record, index) => {
         return (
           <div style={{ textAlign: 'right' }}>
-            <strong>{numeral(text).format('0,0$')}</strong>
+            <span>{numeral(text).format('0,0$')}</span>
           </div>
         );
       },
@@ -85,6 +85,19 @@ export default function StockPage() {
         return (
           <div style={{ textAlign: 'right' }}>
             <span>{numeral(text).format('0,0')}%</span>
+          </div>
+        );
+      },
+    },
+    {
+      title: 'Thành tiền',
+      dataIndex: 'total',
+      key: 'total',
+      width: '10%',
+      render: (text, record, index) => {
+        return (
+          <div style={{ textAlign: 'right' }}>
+            <strong>{numeral(text).format('0,0$')}</strong>
           </div>
         );
       },

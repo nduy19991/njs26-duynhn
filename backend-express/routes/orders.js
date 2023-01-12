@@ -103,4 +103,27 @@ router.delete('/:id', function (req, res, next) {
   }
 });
 
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 7
+// ------------------------------------------------------------------------------------------------
+// https://www.mongodb.com/docs/manual/reference/operator/query/
+// http://localhost:9000/products/questions/1?discount=10
+router.get('/questions/7', function (req, res, next) {
+  try {
+    let status = req.query.status;
+    let query = { status: { $lte: status } };
+    // address có chứa từ Hải Châu
+
+    Order.find(query)
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;

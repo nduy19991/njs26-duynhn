@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { Form, Input, Button, Table, Space, Modal } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Table, Space, Modal, Popconfirm } from "antd";
 
 function SuppliersPage() {
   const [refresh, setRefresh] = React.useState(0);
@@ -38,7 +39,7 @@ function SuppliersPage() {
       key: "phoneNumber",
     },
     {
-      title: "Địa chỉ",
+      title: "Xuất xứ",
       dataIndex: "address",
       key: "address",
     },
@@ -49,8 +50,22 @@ function SuppliersPage() {
       render: (text, record, index) => {
         return (
           <Space>
-            <Button onClick={() => selectSupplier(record)}>Sửa</Button>
-            <Button onClick={() => deleteSupplier(record._id)}>Xoá</Button>
+            <Button
+              type="dashed"
+              icon={<EditOutlined />}
+              onClick={() => selectSupplier(record)}
+            />
+
+            <Popconfirm
+              title="Are you sure to delete?"
+              okText="Đồng ý"
+              cancelText="Đóng"
+              onConfirm={() => {
+                deleteSupplier(record._id);
+              }}
+            >
+              <Button danger type="dashed" icon={<DeleteOutlined />} />
+            </Popconfirm>
           </Space>
         );
       },
