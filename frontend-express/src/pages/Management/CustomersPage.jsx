@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import moment from 'moment';
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Form, Input, Button, Table, Space, Modal, DatePicker, Popconfirm,} from "antd";
+import { Form, Input, Button, Table, Space, Modal, DatePicker, Popconfirm } from "antd";
 
 function CustomersPage() {
   const [refresh, setRefresh] = React.useState(0);
@@ -270,6 +270,7 @@ function CustomersPage() {
         dataSource={Customers}
         columns={columns}
         pagination={false}
+        style={{ width: "75%", margin: "auto" }}
       />
 
       {/* UPDATE FORM */}

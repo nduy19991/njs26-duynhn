@@ -12,6 +12,7 @@ var customersRouter = require('./routes/customers');
 var suppliersRouter = require('./routes/suppliers');
 var employeesRouter = require('./routes/employees');
 var ordersRouter = require('./routes/orders');
+var authRouter = require('./routes/auth');
 
 var app = express();
 
@@ -32,12 +33,19 @@ app.use(
   }),
 );
 
+const myLogger = function(req, res,next) {
+  console.log('LOGGER');
+  next();
+};
+
+app.use(myLogger);
 app.use('/products', productsRouter);
 app.use('/customers', customersRouter);
 app.use('/suppliers', suppliersRouter);
 app.use('/employees', employeesRouter);
 app.use('/orders', ordersRouter);
 app.use('/categories', categoriesRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
