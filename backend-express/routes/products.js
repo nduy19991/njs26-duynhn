@@ -1,22 +1,22 @@
-const { CONNECTION_STRING } = require('../constants/dbSettings');
-const { default: mongoose } = require('mongoose');
-const yup = require('yup');
-var {validateSchema} = require('../validations/validateSchema');
+const { CONNECTION_STRING } = require("../constants/dbSettings");
+const { default: mongoose } = require("mongoose");
+const yup = require("yup");
+var { validateSchema } = require("../validations/validateSchema");
 
-const { Product } = require('../models');
+const { Product } = require("../models");
 // MONGOOSE
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 mongoose.connect(CONNECTION_STRING);
 
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
 /* GET ALL */
-router.get('/', function (req, res, next) {
+router.get("/", function (req, res, next) {
   try {
     Product.find()
-      .populate('category')
-      .populate('supplier')
+      .populate("category")
+      .populate("supplier")
       .then((result) => {
         res.send(result);
       })
@@ -29,7 +29,7 @@ router.get('/', function (req, res, next) {
 });
 
 /* GET BY ID */
-router.get('/:id', function (req, res, next) {
+router.get("/:id", function (req, res, next) {
   try {
     const { id } = req.params;
     Product.findById(id)
@@ -45,7 +45,7 @@ router.get('/:id', function (req, res, next) {
 });
 
 /* POST */
-router.post('/', function (req, res, next) {
+router.post("/", function (req, res, next) {
   try {
     const data = req.body;
 
@@ -66,7 +66,7 @@ router.post('/', function (req, res, next) {
 });
 
 // PATCH
-router.patch('/:id', function (req, res, next) {
+router.patch("/:id", function (req, res, next) {
   try {
     const { id } = req.params;
     const data = req.body;
@@ -86,7 +86,7 @@ router.patch('/:id', function (req, res, next) {
 });
 
 // DELETE
-router.delete('/:id', function (req, res, next) {
+router.delete("/:id", function (req, res, next) {
   try {
     const { id } = req.params;
     Product.findByIdAndDelete(id)
@@ -107,42 +107,46 @@ router.delete('/:id', function (req, res, next) {
 // https://www.mongodb.com/docs/manual/reference/operator/query/
 // http://localhost:9000/products/questions/1?discount=10
 
-const question1Schema =yup.object({
+const question1Schema = yup.object({
   query: yup.object({
-      discount: yup.number().integer().min(0).max(100),
+    discount: yup.number().integer().min(0).max(100),
   }),
   params: yup.object({}),
 });
 
-router.get('/questions/1', validateSchema(question1Schema), function (req, res, next) {
-  try {
-    let discount =req.query.discount
-    let query = { discount: { $lte: discount } };
-    Product.find(query)
-      .populate('category')
-      .populate('supplier')
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.message });
-      });
-  } catch (err) {
-    res.sendStatus(500);
+router.get(
+  "/questions/1",
+  validateSchema(question1Schema),
+  function (req, res, next) {
+    try {
+      let discount = req.query.discount;
+      let query = { discount: { $lte: discount } };
+      Product.find(query)
+        .populate("category")
+        .populate("supplier")
+        .then((result) => {
+          res.send(result);
+        })
+        .catch((err) => {
+          res.status(400).send({ message: err.message });
+        });
+    } catch (err) {
+      res.sendStatus(500);
+    }
   }
-});
+);
 
 // ------------------------------------------------------------------------------------------------
 // QUESTIONS 2
 // ------------------------------------------------------------------------------------------------
 // https://www.mongodb.com/docs/manual/reference/operator/query/
-router.get('/questions/2', function (req, res, next) {
+router.get("/questions/2", function (req, res, next) {
   try {
-    let stock =req.query.stock
+    let stock = req.query.stock;
     let query = { stock: { $lte: stock } };
     Product.find(query)
-      .populate('category')
-      .populate('supplier')
+      .populate("category")
+      .populate("supplier")
       .then((result) => {
         res.send(result);
       })
@@ -157,16 +161,19 @@ router.get('/questions/2', function (req, res, next) {
 // ------------------------------------------------------------------------------------------------
 // QUESTIONS 3
 // ------------------------------------------------------------------------------------------------
-router.get('/questions/3', async (req, res, next) => {
+router.get("/questions/3", async (req, res, next) => {
   try {
-    // let finalPrice = price * (100 - discount) / 100;
-    const s = { $subtract: [100, '$discount'] }; // (100 - 5)
-    const m = { $multiply: ['$price', s] }; // price * 95
-    const d = { $divide: [m, 100] }; // price * 95 / 100
+    let total = price * (100 - discount) / 100;
+    // const s = { $subtract: [100, '$discount'] }; // (100 - 5)
+    // const m = { $multiply: ['$price', s] }; // price * 95
+    // const d = { $divide: [m, 100] }; // price * 95 / 100
 
-    let total =req.query.price
-    let aggregate = [{ $match: { $expr: { $lte: [d, total] } } }];
-    Product.aggregate(aggregate)
+    let discount = req.query.discount;
+    let price = req.query.price;
+    // let query = { total: { $lte: total } };
+    // let aggregate = [{ $match: { $expr: { $lte: [d, total] } } }];
+    Product.find(total)
+      .populate("supplier")
       .then((result) => {
         res.send(result);
       })

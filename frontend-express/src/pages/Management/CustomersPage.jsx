@@ -1,8 +1,17 @@
 import React from "react";
 import axios from "axios";
-import moment from 'moment';
+import moment from "moment";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Form, Input, Button, Table, Space, Modal, DatePicker, Popconfirm } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Table,
+  Space,
+  Modal,
+  DatePicker,
+  Popconfirm,
+} from "antd";
 
 function CustomersPage() {
   const [refresh, setRefresh] = React.useState(0);
@@ -13,7 +22,7 @@ function CustomersPage() {
   // COLUMNS OF ANTD TABLE
   const columns = [
     {
-      title: "TT",
+      title: "No",
       key: "no",
       width: "1%",
       render: (text, record, index) => {
@@ -25,38 +34,37 @@ function CustomersPage() {
       },
     },
     {
-      title: "Họ",
+      title: "First Name",
       dataIndex: "firstName",
       key: "firstName",
     },
     {
-      title: "Tên",
+      title: "Last Name",
       dataIndex: "lastName",
       key: "lastName",
-      width: "1%",
     },
     {
-      title: "Họ và tên",
+      title: "Full Name",
       dataIndex: "fullName",
       key: "fullName",
     },
     {
-      title: "Thư điện tử",
+      title: "Email",
       dataIndex: "email",
       key: "email",
     },
     {
-      title: "Số điện thoại",
+      title: "Phone Number",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
     },
     {
-      title: "Địa chỉ",
+      title: "Address",
       dataIndex: "address",
       key: "address",
     },
     {
-      title: "Ngày sinh",
+      title: "Birthday",
       dataIndex: "birthday",
       key: "birthday",
       render: (text, record, index) => {
@@ -82,8 +90,8 @@ function CustomersPage() {
 
             <Popconfirm
               title="Are you sure to delete?"
-              okText="Đồng ý"
-              cancelText="Đóng"
+              okText="OK"
+              cancelText="Close"
               onConfirm={() => {
                 deleteCustomer(record._id);
               }}
@@ -148,10 +156,19 @@ function CustomersPage() {
 
   return (
     <div>
-      <div style={{width:'100%'}}>
-      <h1 style={{width:'25%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Danh sách khách hàng</h1>
-      </div>
       {/* CREATE FORM */}
+      <div style={{ width: "100%" }}>
+        <h1
+          style={{
+            width: "17%",
+            margin: "auto",
+            fontSize: "35px",
+            marginBottom: "50px",
+          }}
+        >
+          Create Customer
+        </h1>
+      </div>
       <Form
         form={createForm}
         name="create-Customer"
@@ -165,12 +182,12 @@ function CustomersPage() {
       >
         {/* FIRST NAME */}
         <Form.Item
-          label="Họ"
+          label="First Name"
           name="firstName"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập họ khách hàng",
+              message: "Please enter fist name",
             },
           ]}
         >
@@ -179,12 +196,12 @@ function CustomersPage() {
 
         {/* LAST NAME */}
         <Form.Item
-          label="Tên"
+          label="Last Name"
           name="lastName"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tên khách hàng",
+              message: "Please enter last name",
             },
           ]}
         >
@@ -193,16 +210,16 @@ function CustomersPage() {
 
         {/* EMAIL */}
         <Form.Item
-          label="Thư điện tử"
+          label="Email"
           name="email"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ thư điện tử",
+              message: "Please enter email",
             },
             {
-              type: 'email',
-              message: "Vui lònng nhập đúng định dạng",
+              type: "email",
+              message: "Please enter correct email format",
             },
           ]}
         >
@@ -211,12 +228,12 @@ function CustomersPage() {
 
         {/* PHONENUMBER */}
         <Form.Item
-          label="Số điện thoại"
+          label="Phone Number"
           name="phoneNumber"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập số điện thoại khách hàng",
+              message: "Please enter phone number",
             },
           ]}
         >
@@ -225,12 +242,12 @@ function CustomersPage() {
 
         {/* ADDRESS */}
         <Form.Item
-          label="Địa chỉ"
+          label="Address"
           name="address"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ khách hàng",
+              message: "Please enter",
             },
           ]}
         >
@@ -239,12 +256,12 @@ function CustomersPage() {
 
         {/* BIRTHDAY */}
         <Form.Item
-          label="Ngày sinh"
+          label="Birthday"
           name="birthday"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập ngày sinh khách hàng",
+              message: "Please enter birthday",
             },
           ]}
         >
@@ -259,12 +276,24 @@ function CustomersPage() {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Lưu thông tin
+            Create
           </Button>
         </Form.Item>
       </Form>
 
       {/* TABLE */}
+      <div style={{ width: "100%" }}>
+        <h1
+          style={{
+            width: "15%",
+            margin: "auto",
+            fontSize: "35px",
+            marginBottom: "50px",
+          }}
+        >
+          Customers List
+        </h1>
+      </div>
       <Table
         rowKey={"_id"}
         dataSource={Customers}
@@ -276,16 +305,15 @@ function CustomersPage() {
       {/* UPDATE FORM */}
       <Modal
         open={editModalVisible}
-        title="Cập nhật thông tin"
+        title="Edit customer information"
         onCancel={() => {
           setEditModalVisible(false);
         }}
         onOk={() => {
           updateForm.submit();
         }}
-        cancelText="Đóng"
-        okText="Lưu thông tin"
-        
+        cancelText="Close"
+        okText="Save"
       >
         <Form
           form={updateForm}
@@ -299,92 +327,92 @@ function CustomersPage() {
           onFinish={onEditFinish}
         >
           {/* FIRST NAME */}
-        <Form.Item
-          label="Họ"
-          name="firstName"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập họ khách hàng",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            label="First Name"
+            name="firstName"
+            rules={[
+              {
+                required: true,
+                message: "Please enter first name",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        {/* LAST NAME */}
-        <Form.Item
-          label="Tên"
-          name="lastName"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập tên khách hàng",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          {/* LAST NAME */}
+          <Form.Item
+            label="Last Name"
+            name="lastName"
+            rules={[
+              {
+                required: true,
+                message: "VPlease enter last name",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        {/* EMAIL */}
-        <Form.Item
-          label="Thư điện tử"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập địa chỉ thư điện tử",
-            },
-            {
-              type: 'email',
-              message: "Vui lònng nhập đúng định dạng",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          {/* EMAIL */}
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Please enter email",
+              },
+              {
+                type: "email",
+                message: "Please enter correct email format",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        {/* PHONENUMBER */}
-        <Form.Item
-          label="Số điện thoại"
-          name="phoneNumber"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập số điện thoại khách hàng",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          {/* PHONENUMBER */}
+          <Form.Item
+            label="Phone Number"
+            name="phoneNumber"
+            rules={[
+              {
+                required: true,
+                message: "Please enter phone number",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        {/* ADDRESS */}
-        <Form.Item
-          label="Địa chỉ"
-          name="address"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập địa chỉ khách hàng",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          {/* ADDRESS */}
+          <Form.Item
+            label="Address"
+            name="address"
+            rules={[
+              {
+                required: true,
+                message: "Please enter address",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        {/* BIRTHDAY */}
-        <Form.Item
-          label="Ngày sinh"
-          name="birthday"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập ngày sinh khách hàng",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          {/* BIRTHDAY */}
+          <Form.Item
+            label="Birthday"
+            name="birthday"
+            rules={[
+              {
+                required: true,
+                message: "Please enter birthday",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
         </Form>
       </Modal>
     </div>

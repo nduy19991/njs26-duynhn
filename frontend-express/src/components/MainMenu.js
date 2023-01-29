@@ -4,28 +4,28 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const items = [
-  { label: 'Trang chủ', key: 'home', icon: <HomeOutlined /> }, // remember to pass the key prop
-  { label: 'Cấu hình', key: 'settings', icon: <SettingOutlined /> }, // which is required
+  { label: 'Home', key: 'home', icon: <HomeOutlined /> }, // remember to pass the key prop
+  { label: 'Settings', key: 'settings', icon: <SettingOutlined /> }, // which is required
   {
-    label: 'Quản trị dữ liệu',
+    label: 'Data management',
     key: 'management',
     icon: <DatabaseOutlined />,
     children: [
-      { label: 'Khách hàng', key: 'management/customers' },
-      { label: 'Sản phẩm', key: 'management/products' },
-      { label: 'Đơn hàng', key: 'management/orders' },
-      { label: 'Nhân viên', key: 'management/employees' },
-      { label: 'Nhà cung cấp', key: 'management/suppliers' },
-      { label: 'Phân loại', key: 'management/categories' },
+      { label: 'Customers', key: 'management/customers' },
+      { label: 'Products', key: 'management/products' },
+      { label: 'Orders', key: 'management/orders' },
+      { label: 'Employees', key: 'management/employees' },
+      { label: 'Suppliers', key: 'management/suppliers' },
+      { label: 'Categories', key: 'management/categories' },
     ],
   },
   {
-    label: 'Quản lý bán hàng',
+    label: 'Sales management',
     key: 'sales',
     icon: <OrderedListOutlined />,
     children: [
       {
-        label: 'Sản phẩm',
+        label: 'Products',
         key: 'sales/products/menu',
         children: [
           {
@@ -43,7 +43,7 @@ const items = [
         ],
       },
       {
-        label: 'Đơn hàng',
+        label: 'Orders',
         key: 'sales/orders/menu',
         children: [
           {

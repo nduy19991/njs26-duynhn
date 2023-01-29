@@ -34,7 +34,7 @@ function App() {
           </Sider>
           <Layout>
             <Header>
-              <h1 style={{ color: "white", margin: "auto" }}>Nguyễn [H.N] Duy</h1>
+              <h4 style={{ color: "white", marginTop: "15px" }}>Nguyễn [H.N] Duy</h4>
             </Header>
 
             <Content style={{ padding: 24 }}>

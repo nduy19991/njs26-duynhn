@@ -26,7 +26,7 @@ export default function ProductPage() {
   // Columns of Antd Table
   const columns = [
     {
-      title: "TT",
+      title: "No",
       key: "no",
       width: "1%",
       render: (text, record, index) => {
@@ -40,7 +40,7 @@ export default function ProductPage() {
 
     {
       title: () => {
-        return <div style={{ whiteSpace: "nowrap" }}>Danh mục</div>;
+        return <div style={{ whiteSpace: "nowrap" }}>Category</div>;
       },
       dataIndex: "category",
       key: "category",
@@ -56,7 +56,7 @@ export default function ProductPage() {
 
     {
       title: () => {
-        return <div style={{ whiteSpace: "nowrap" }}>Nhà cung cấp</div>;
+        return <div style={{ whiteSpace: "nowrap" }}>Supplier</div>;
       },
       dataIndex: "supplier",
       key: "supplier",
@@ -70,7 +70,7 @@ export default function ProductPage() {
       },
     },
     {
-      title: "Tên sản phẩm",
+      title: "Name",
       key: "name",
       dataIndex: "name",
       width: "20%",
@@ -83,10 +83,10 @@ export default function ProductPage() {
       },
     },
     {
-      title: "Giá bán",
+      title: "Price",
       dataIndex: "price",
       key: "price",
-      width: "10%",
+      width: "6%",
       render: (text, record, index) => {
         return (
           <div style={{ textAlign: "right" }}>
@@ -96,10 +96,10 @@ export default function ProductPage() {
       },
     },
     {
-      title: "Giảm giá",
+      title: "Discount",
       dataIndex: "discount",
       key: "discount",
-      width: "10%",
+      width: "7%",
       render: (text, record, index) => {
         return (
           <div style={{ textAlign: "right" }}>
@@ -109,10 +109,10 @@ export default function ProductPage() {
       },
     },
     {
-      title: "Tồn kho",
+      title: "Stock",
       dataIndex: "stock",
       key: "stock",
-      width: "10%",
+      width: "5%",
       render: (text, record, index) => {
         return (
           <div style={{ textAlign: "right" }}>
@@ -122,17 +122,17 @@ export default function ProductPage() {
       },
     },
     {
-      title: "Thành tiền",
+      title: "Total",
       dataIndex: "total",
       key: "total",
-      width: "10%",
+      width: "6%",
       render: (text, record, index) => {
         return (
           <div style={{ textAlign: "right" }}>
             <strong>{numeral(text).format("0,0$")}</strong>
           </div>
         );
-      }
+      },
     },
     {
       title: "",
@@ -149,8 +149,8 @@ export default function ProductPage() {
 
             <Popconfirm
               title="Are you sure to delete?"
-              okText="Đồng ý"
-              cancelText="Đóng"
+              okText="OK"
+              cancelText="Close"
               onConfirm={() => {
                 deleteProduct(record._id);
               }}
@@ -234,13 +234,13 @@ export default function ProductPage() {
       <div style={{ width: "100%" }}>
         <h1
           style={{
-            width: "13%",
+            width: "15%",
             margin: "auto",
             fontSize: "35px",
             marginBottom: "50px",
           }}
         >
-          Sản phẩm
+          Create Product
         </h1>
       </div>
       {/* CREATE FORM  */}
@@ -256,12 +256,12 @@ export default function ProductPage() {
         onFinish={onFinish}
       >
         <Form.Item
-          label="Danh mục sản phẩm"
+          label="Category"
           name="categoryId"
           rules={[
             {
               required: true,
-              message: "Please input product categpry!",
+              message: "Please select product categpry",
             },
           ]}
         >
@@ -279,12 +279,12 @@ export default function ProductPage() {
         </Form.Item>
 
         <Form.Item
-          label="Nhà cung cấp"
+          label="Supplier"
           name="supplierId"
           rules={[
             {
               required: true,
-              message: "Please input product supplier!",
+              message: "Please select product supplier",
             },
           ]}
         >
@@ -303,12 +303,12 @@ export default function ProductPage() {
 
         {/* NAME */}
         <Form.Item
-          label="Tên sản phẩm"
+          label="Name"
           name="name"
           rules={[
             {
               required: true,
-              message: "Please input product name!",
+              message: "Please input product name",
             },
           ]}
         >
@@ -317,12 +317,12 @@ export default function ProductPage() {
 
         {/* PRICE */}
         <Form.Item
-          label="Giá bán"
+          label="Price"
           name="price"
           rules={[
             {
               required: true,
-              message: "Please input product price!",
+              message: "Please input product price",
             },
           ]}
         >
@@ -331,12 +331,12 @@ export default function ProductPage() {
 
         {/* DISCOUNT */}
         <Form.Item
-          label="Giảm (%)"
+          label="Discount"
           name="discount"
           rules={[
             {
               required: true,
-              message: "Please input product discount!",
+              message: "Please input product discount",
             },
           ]}
         >
@@ -345,12 +345,12 @@ export default function ProductPage() {
 
         {/* STOCK */}
         <Form.Item
-          label="Tồn"
+          label="Stock"
           name="stock"
           rules={[
             {
               required: true,
-              message: "Please input product stock!",
+              message: "Please input product stock",
             },
           ]}
         >
@@ -365,12 +365,24 @@ export default function ProductPage() {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Lưu thông tin
+            Create
           </Button>
         </Form.Item>
       </Form>
 
       {/* TABLE */}
+      <div style={{ width: "100%" }}>
+        <h1
+          style={{
+            width: "13%",
+            margin: "auto",
+            fontSize: "35px",
+            marginBottom: "50px",
+          }}
+        >
+          Products List
+        </h1>
+      </div>
       <Table
         rowKey="_id"
         dataSource={products}
