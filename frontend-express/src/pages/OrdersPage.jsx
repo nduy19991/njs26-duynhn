@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import moment from 'moment';
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Form, Input, Button, Table, Space, Modal, DatePicker, Popconfirm } from "antd";
+import { Form, Input, Button, Table, Space, Modal, DatePicker, Popconfirm, Select } from "antd";
 
 function OdersPage() {
   const [refresh, setRefresh] = React.useState(0);
@@ -13,7 +13,7 @@ function OdersPage() {
   // COLUMNS OF ANTD TABLE
   const columns = [
     {
-      title: "TT",
+      title: "No",
       key: "no",
       width: "1%",
       render: (text, record, index) => {
@@ -25,7 +25,7 @@ function OdersPage() {
       },
     },
     {
-      title: "Tên sản phẩm",
+      title: "Product's name",
       dataIndex: "productId",
       key: "products",
       render: (text, record, index) => {
@@ -37,7 +37,7 @@ function OdersPage() {
       },
     },
     {
-      title: "Ngày tạo đơn",
+      title: "Created Date",
       dataIndex: "createdDate",
       key: "createdDate",
       render: (text, record, index) => {
@@ -49,7 +49,7 @@ function OdersPage() {
       },
     },
     {
-      title: "Ngày giao hàng",
+      title: "Shipped Date",
       dataIndex: "shippedDate",
       key: "shippedDate",
       render: (text, record, index) => {
@@ -61,27 +61,27 @@ function OdersPage() {
       },
     },
     {
-      title: "Tình trạng đơn",
+      title: "Status",
       dataIndex: "status",
       key: "status",
     },
     {
-      title: "Mô tả",
+      title: "Description",
       dataIndex: "description",
       key: "description",
     },
     {
-      title: "Hình thức thanh toán",
+      title: "Payment Type",
       dataIndex: "paymentType",
       key: "paymentType",
     },
     {
-      title: "Địa chỉ giao hàng",
+      title: "Shipping Address",
       dataIndex: "shippingAddress",
       key: "shippingAddress",
     },
     {
-      title: "Tên khách hàng",
+      title: "Customer's name",
       dataIndex: "customer",
       key: "customer",
       render: (text, record, index) => {
@@ -93,7 +93,7 @@ function OdersPage() {
       },
     },
     {
-      title: "Nhân viên bán hàng",
+      title: "Employee",
       dataIndex: "employee",
       key: "employee",
       render: (text, record, index) => {
@@ -119,8 +119,8 @@ function OdersPage() {
 
             <Popconfirm
               title="Are you sure to delete?"
-              okText="Đồng ý"
-              cancelText="Đóng"
+              okText="OK"
+              cancelText="Close"
               onConfirm={() => {
                 deleteOrders(record._id);
               }}
@@ -186,7 +186,7 @@ function OdersPage() {
   return (
     <div>
       <div style={{width:'100%'}}>
-      <h1 style={{width:'13%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Đơn hàng</h1>
+      <h1 style={{width:'13%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Create Order</h1>
       </div>
       {/* CREATE FORM */}
       <Form
@@ -202,71 +202,115 @@ function OdersPage() {
       >
         {/* TYPE */}
         <Form.Item
-          label="Ngày tạo đơn"
+          label="Created Date"
           name="createdDate"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập ngày tạo đơn",
+              message: "Please select created date",
             },
           ]}
         >
-          <DatePicker />
+          <DatePicker format="DD-MM-YYYY"/>
         </Form.Item>
 
         <Form.Item
-          label="Ngày giao"
+          label="Shipped Date"
           name="shippedDate"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập ngày giao",
+              message: "Please select shipped date",
             },
           ]}
         >
           
-          <DatePicker />
+          <DatePicker format="DD-MM-YYYY"/>
         </Form.Item>
 
         <Form.Item
-          label="Tình trạng đơn hàng"
+          label="Status"
           name="status"
+          labelCol={{
+            span: 8,
+          }}
+          wrapperCol={{
+            span: 2,
+          }}
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tình trạng đơn hàng",
+              message: "Please select status",
             },
           ]}
         >
-          
-          <Input />
+          <Select
+            options={
+              [
+                {
+                  value: 'COMPLETED',
+                  label: 'COMPLETED',
+                },
+                {
+                  value: 'WAITING',
+                  label: 'WAITING',
+                },
+                {
+                  value: 'CANCELED',
+                  label: 'CANCELED',
+                },
+              ]
+            }
+          />
         </Form.Item>
 
-        {/* EMAIL */}
         <Form.Item
-          label="Mô tả"
+          label="Payment Type"
+          name="paymentType"
+          labelCol={{
+            span: 8,
+          }}
+          wrapperCol={{
+            span: 2,
+          }}
+          rules={[
+            {
+              required: true,
+              message: "Please select payment type",
+            },
+          ]}
+        >
+          <Select
+            options={
+              [
+                {
+                  value: 'CREDIT CARD',
+                  label: 'CREDIT CARD',
+                },
+                {
+                  value: 'CASH',
+                  label: 'CASH',
+                },
+                {
+                  value: 'MOMO',
+                  label: 'MOMO',
+                },
+              ]
+            }
+          />
+        </Form.Item>
+
+        {/* DESCRIPTION */}
+        <Form.Item
+          label="Description"
           name="description"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập mô tả",
+              message: "Please enter order description",
             },
           ]}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Hình thức thanh toán"
-          name="paymentType"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng chọn hình thức thanh toán",
-            },
-          ]}
-        >
-          
           <Input />
         </Form.Item>
 
@@ -276,7 +320,7 @@ function OdersPage() {
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ giao hàng",
+              message: "Please enter shipping address",
             },
           ]}
         >
@@ -285,12 +329,12 @@ function OdersPage() {
         </Form.Item>
 
         <Form.Item
-          label="Mã khách hàng"
+          label="Customer Id"
           name="customerId"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập mã khách hàng",
+              message: "Please enter Customer Id",
             },
           ]}
         >
@@ -299,12 +343,12 @@ function OdersPage() {
         </Form.Item>
 
         <Form.Item
-          label="Mã nhân viên"
+          label="Employee Id"
           name="employeeId"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập mã nhân viên",
+              message: "Please enter Employee Id",
             },
           ]}
         >
@@ -313,12 +357,12 @@ function OdersPage() {
         </Form.Item>
 
         <Form.Item
-          label="Mã sản phẩm"
+          label="Product Id"
           name="productId"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập mã sản phẩm",
+              message: "Please enter Product Id",
             },
           ]}
         >
@@ -334,12 +378,15 @@ function OdersPage() {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Lưu thông tin
+            Create
           </Button>
         </Form.Item>
       </Form>
 
       {/* TABLE */}
+      <div style={{width:'100%'}}>
+      <h1 style={{width:'10%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Order List</h1>
+      </div>
       <Table
         rowKey={"_id"}
         dataSource={orders}
@@ -350,15 +397,15 @@ function OdersPage() {
       {/* UPDATE FORM */}
       <Modal
         open={editModalVisible}
-        title="Cập nhật thông tin"
+        title="Edit order information"
         onCancel={() => {
           setEditModalVisible(false);
         }}
         onOk={() => {
           updateForm.submit();
         }}
-        cancelText="Đóng"
-        okText="Lưu thông tin"
+        cancelText="Close"
+        okText="Save"
       >
         <Form
           form={updateForm}
@@ -372,25 +419,25 @@ function OdersPage() {
           onFinish={onEditFinish}
         >
          <Form.Item
-          label="Ngày tạo đơn"
+          label="Created Date"
           name="createdDate"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập ngày tạo đơn",
+              message: "Please enter created date",
             },
           ]}
         >
-          <Input />
+          <Input format="DD-MM-YYYY"/>
         </Form.Item>
 
         <Form.Item
-          label="Ngày giao"
+          label="Shipped Date"
           name="shippedDate"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập ngày giao",
+              message: "Please enter shipped date",
             },
           ]}
         >
@@ -399,54 +446,88 @@ function OdersPage() {
         </Form.Item>
 
         <Form.Item
-          label="Tình trạng đơn hàng"
+          label="Status"
           name="status"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tình trạng đơn hàng",
+              message: "Please select order status",
             },
           ]}
         >
           
-          <Input />
+          <Select
+            options={
+              [
+                {
+                  value: 'COMPLETED',
+                  label: 'COMPLETED',
+                },
+                {
+                  value: 'WAITING',
+                  label: 'WAITING',
+                },
+                {
+                  value: 'CANCELED',
+                  label: 'CANCELED',
+                },
+              ]
+            }
+          />
         </Form.Item>
 
-        {/* EMAIL */}
         <Form.Item
-          label="Mô tả"
-          name="description"
-          rules={[
-            {
-              required: true,
-              message: "Vui lònng nhập mô tả",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Hình thức thanh toán"
+          label="Payment Type"
           name="paymentType"
           rules={[
             {
               required: true,
-              message: "Vui lònng chọn hình thức thanh toán",
+              message: "Please select payment type",
             },
           ]}
         >
           
+          <Select
+            options={
+              [
+                {
+                  value: 'CREDIT CARD',
+                  label: 'CREDIT CARD',
+                },
+                {
+                  value: 'CASH',
+                  label: 'CASH',
+                },
+                {
+                  value: 'MOMO',
+                  label: 'MOMO',
+                },
+              ]
+            }
+          />
+        </Form.Item>
+
+        {/* DESCRIPTION */}
+        <Form.Item
+          label="Description"
+          name="description"
+          rules={[
+            {
+              required: true,
+              message: "Please enter order description",
+            },
+          ]}
+        >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Địa chỉ giao hàng"
+          label="Shipping Address"
           name="shippingAddress"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ giao hàng",
+              message: "Please enter shipping address",
             },
           ]}
         >

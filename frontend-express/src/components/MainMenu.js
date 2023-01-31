@@ -29,15 +29,15 @@ const items = [
         key: 'sales/products/menu',
         children: [
           {
-            label: 'Kiểm tra hàng giảm giá',
+            label: 'Check by discount',
             key: 'sales/products/discount',
           },
           {
-            label: 'Kiểm tra hàng tồn kho',
+            label: 'Check by stock',
             key: 'sales/products/stock',
           },
           {
-            label: 'Kiểm tra giá sản phẩm',
+            label: 'Check by price',
             key: 'sales/products/price',
           },
         ],
@@ -47,15 +47,11 @@ const items = [
         key: 'sales/orders/menu',
         children: [
           {
-            label: 'Đơn hàng',
-            key: 'sales/orders',
-          },
-          {
-            label: 'Thông kê theo trạng thái',
+            label: 'Check by order status',
             key: 'sales/orders/status',
           },
           {
-            label: 'Thông kê theo thanh toán',
+            label: 'Check by payment status',
             key: 'sales/orders/payment-status ',
           },
         ],

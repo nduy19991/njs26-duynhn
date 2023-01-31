@@ -57,7 +57,7 @@ const orderSchema = new Schema({
     default: 'CASH',
     validate: {
       validator: (value) => {
-        if (['CASH', 'CREDIT CARD'].includes(value.toUpperCase())) {
+        if (['CASH', 'CREDIT CARD', 'MOMO'].includes(value.toUpperCase())) {
           return true;
         }
         return false;

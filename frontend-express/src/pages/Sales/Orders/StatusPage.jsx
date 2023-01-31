@@ -123,12 +123,12 @@ export default function StatusPage() {
         onFinish={onFinish}
       >
         <FormItem
-          label="Chọn trạng thái"
+          label="Status"
           name="status"
           rules={[
             {
               required: true,
-              message: "Vui lòng nhập trạng thái đơn hàng",
+              message: "Please select order status ",
             },
           ]}
         >

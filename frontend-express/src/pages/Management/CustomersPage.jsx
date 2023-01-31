@@ -41,7 +41,7 @@ function CustomersPage() {
     {
       title: "Last Name",
       dataIndex: "lastName",
-      key: "lastName",
+      key: "lastName", 
     },
     {
       title: "Full Name",
@@ -187,7 +187,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Please enter fist name",
+              message: "Please enter customer fist name",
             },
           ]}
         >
@@ -201,7 +201,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Please enter last name",
+              message: "Please enter customer last name",
             },
           ]}
         >
@@ -215,7 +215,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Please enter email",
+              message: "Please ente customer email",
             },
             {
               type: "email",
@@ -233,7 +233,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Please enter phone number",
+              message: "Please enter customer phone number",
             },
           ]}
         >
@@ -247,7 +247,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Please enter",
+              message: "Please enter customer address",
             },
           ]}
         >
@@ -261,7 +261,7 @@ function CustomersPage() {
           rules={[
             {
               required: true,
-              message: "Please enter birthday",
+              message: "Please enter customer birthday",
             },
           ]}
         >
@@ -333,7 +333,7 @@ function CustomersPage() {
             rules={[
               {
                 required: true,
-                message: "Please enter first name",
+                message: "Please enter customer first name",
               },
             ]}
           >
@@ -347,7 +347,7 @@ function CustomersPage() {
             rules={[
               {
                 required: true,
-                message: "VPlease enter last name",
+                message: "Please enter customer last name",
               },
             ]}
           >
@@ -361,7 +361,7 @@ function CustomersPage() {
             rules={[
               {
                 required: true,
-                message: "Please enter email",
+                message: "Please enter customer email",
               },
               {
                 type: "email",
@@ -379,7 +379,7 @@ function CustomersPage() {
             rules={[
               {
                 required: true,
-                message: "Please enter phone number",
+                message: "Please enter customer phone number",
               },
             ]}
           >
@@ -393,7 +393,7 @@ function CustomersPage() {
             rules={[
               {
                 required: true,
-                message: "Please enter address",
+                message: "Please enter customer address",
               },
             ]}
           >
@@ -407,7 +407,7 @@ function CustomersPage() {
             rules={[
               {
                 required: true,
-                message: "Please enter birthday",
+                message: "Please enter customer birthday",
               },
             ]}
           >

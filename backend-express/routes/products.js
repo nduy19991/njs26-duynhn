@@ -163,7 +163,7 @@ router.get("/questions/2", function (req, res, next) {
 // ------------------------------------------------------------------------------------------------
 router.get("/questions/3", async (req, res, next) => {
   try {
-    let total = price * (100 - discount) / 100;
+    let total = { $divide: [{ $multiply: [price, { $subtract: [100, discount] }] }, 100] }
     // const s = { $subtract: [100, '$discount'] }; // (100 - 5)
     // const m = { $multiply: ['$price', s] }; // price * 95
     // const d = { $divide: [m, 100] }; // price * 95 / 100
