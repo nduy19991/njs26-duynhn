@@ -163,16 +163,16 @@ router.get("/questions/2", function (req, res, next) {
 // ------------------------------------------------------------------------------------------------
 router.get("/questions/3", async (req, res, next) => {
   try {
-    let total = { $divide: [{ $multiply: [price, { $subtract: [100, discount] }] }, 100] }
-    // const s = { $subtract: [100, '$discount'] }; // (100 - 5)
-    // const m = { $multiply: ['$price', s] }; // price * 95
-    // const d = { $divide: [m, 100] }; // price * 95 / 100
+    // let total = { $divide: [{ $multiply: [price, { $subtract: [100, discount] }] }, 100] }
+    const s = { $subtract: [100, '$discount'] }; // (100 - 5)
+    const m = { $multiply: ['$price', s] }; // price * 95
+    const d = { $divide: [m, 100] }; // price * 95 / 100
 
-    let discount = req.query.discount;
-    let price = req.query.price;
+    // let discount = req.query.discount;
+    let price = req.query;
     // let query = { total: { $lte: total } };
-    // let aggregate = [{ $match: { $expr: { $lte: [d, total] } } }];
-    Product.find(total)
+    let aggregate = [{ $match: { $expr: { $lte: [d, price] } } }];
+    Product.aggregate(aggregate)
       .populate("supplier")
       .then((result) => {
         res.send(result);

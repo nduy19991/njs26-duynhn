@@ -421,6 +421,7 @@ function OdersPage() {
          <Form.Item
           label="Created Date"
           name="createdDate"
+          format="DD-MM-YYYY"
           rules={[
             {
               required: true,
@@ -428,7 +429,7 @@ function OdersPage() {
             },
           ]}
         >
-          <Input format="DD-MM-YYYY"/>
+          <Input/>
         </Form.Item>
 
         <Form.Item

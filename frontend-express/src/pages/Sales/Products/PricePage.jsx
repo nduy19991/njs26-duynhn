@@ -104,9 +104,9 @@ export default function PricePage() {
   const [searchForm] = Form.useForm();
   const onFinish = (values) => {
     console.log(values);
-    let { total } = values;
+    let { price } = values;
     axios
-      .get("http://localhost:9000/products/questions/3?total=" + total, values)
+      .get("http://localhost:9000/products/questions/3?price=" + price, values)
       .then((response) => {
         console.log(response.data);
         setProducts(response.data);
