@@ -395,12 +395,12 @@ export default function ProductPage() {
       <Modal
         open={editModalVisible}
         centered
-        title="Cập nhật thông tin"
+        title="Edit product information"
         onCancel={() => {
           setEditModalVisible(false);
         }}
-        cancelText="Đóng"
-        okText="Lưu thông tin"
+        cancelText="Close"
+        okText="Save"
         onOk={() => {
           updateForm.submit();
         }}
@@ -417,12 +417,12 @@ export default function ProductPage() {
           onFinish={onEditFinish}
         >
           <Form.Item
-            label="Danh mục sản phẩm"
+            label="Category"
             name="categoryId"
             rules={[
               {
                 required: true,
-                message: "Please input product categpry!",
+                message: "Please input product categpry",
               },
             ]}
           >
@@ -440,12 +440,12 @@ export default function ProductPage() {
           </Form.Item>
 
           <Form.Item
-            label="Nhà cung cấp"
+            label="Supplier"
             name="supplierId"
             rules={[
               {
                 required: true,
-                message: "Please input product supplier!",
+                message: "Please input product supplier",
               },
             ]}
           >
@@ -464,12 +464,12 @@ export default function ProductPage() {
 
           {/* NAME */}
           <Form.Item
-            label="Tên sản phẩm"
+            label="Name"
             name="name"
             rules={[
               {
                 required: true,
-                message: "Please input product name!",
+                message: "Please input product name",
               },
             ]}
           >
@@ -478,12 +478,12 @@ export default function ProductPage() {
 
           {/* PRICE */}
           <Form.Item
-            label="Giá bán"
+            label="Price"
             name="price"
             rules={[
               {
                 required: true,
-                message: "Please input product price!",
+                message: "Please input product price",
               },
             ]}
           >
@@ -492,12 +492,12 @@ export default function ProductPage() {
 
           {/* DISCOUNT */}
           <Form.Item
-            label="Giảm (%)"
+            label="Discount (%)"
             name="discount"
             rules={[
               {
                 required: true,
-                message: "Please input product discount!",
+                message: "Please input product discount",
               },
             ]}
           >
@@ -506,12 +506,12 @@ export default function ProductPage() {
 
           {/* STOCK */}
           <Form.Item
-            label="Tồn"
+            label="Stock"
             name="stock"
             rules={[
               {
                 required: true,
-                message: "Please input product stock!",
+                message: "Please input product stock",
               },
             ]}
           >

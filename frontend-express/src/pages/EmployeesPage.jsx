@@ -24,38 +24,38 @@ function EmployeesPage() {
       },
     },
     {
-      title: "Họ",
+      title: "First Name",
       dataIndex: "firstName",
       key: "firstName",
     },
     {
-      title: "Tên",
+      title: "Last Name",
       dataIndex: "lastName",
       key: "lastName",
       width: "5%",
     },
     {
-      title: "Họ và tên",
+      title: "Full Name",
       dataIndex: "fullName",
       key: "fullName",
     },
     {
-      title: "Thư điện tử",
+      title: "Email",
       dataIndex: "email",
       key: "email",
     },
     {
-      title: "Số điện thoại",
+      title: "Phone Number",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
     },
     {
-      title: "Địa chỉ",
+      title: "Address",
       dataIndex: "address",
       key: "address",
     },
     {
-      title: "Ngày sinh",
+      title: "Bỉrthday",
       dataIndex: "birthday",
       key: "birthday",
       
@@ -75,8 +75,8 @@ function EmployeesPage() {
 
             <Popconfirm
               title="Are you sure to delete?"
-              okText="Đồng ý"
-              cancelText="Đóng"
+              okText="Ok"
+              cancelText="Close"
               onConfirm={() => {
                 deleteEmployee(record._id);
               }}
@@ -142,7 +142,7 @@ function EmployeesPage() {
   return (
     <div>
       <div style={{width:'100%'}}>
-      <h1 style={{width:'22%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Danh sách nhân viên</h1>
+      <h1 style={{width:'17%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Create Employee</h1>
       </div>
       {/* CREATE FORM */}
       <Form
@@ -158,12 +158,12 @@ function EmployeesPage() {
       >
         {/* FIRST NAME */}
         <Form.Item
-          label="Họ"
+          label="First Name"
           name="firstName"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập họ nhân viên",
+              message: "Please enter employee first name",
             },
           ]}
         >
@@ -172,12 +172,12 @@ function EmployeesPage() {
 
         {/* LAST NAME */}
         <Form.Item
-          label="Tên"
+          label="Last Name"
           name="lastName"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tên nhân viên",
+              message: "Please enter employee last name",
             },
           ]}
         >
@@ -186,16 +186,16 @@ function EmployeesPage() {
 
         {/* EMAIL */}
         <Form.Item
-          label="Thư điện tử"
+          label="Email"
           name="email"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ thư điện tử",
+              message: "Please enter employee email",
             },
             {
               type: 'email',
-              message: "Vui lònng nhập đúng định dạng",
+              message: "Please enter correct email format",
             },
           ]}
         >
@@ -204,12 +204,12 @@ function EmployeesPage() {
 
         {/* PHONENUMBER */}
         <Form.Item
-          label="Số điện thoại"
+          label="Phone Number"
           name="phoneNumber"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập số điện thoại nhân viên",
+              message: "Please enter employee phone number",
             },
           ]}
         >
@@ -218,12 +218,12 @@ function EmployeesPage() {
 
         {/* ADDRESS */}
         <Form.Item
-          label="Địa chỉ"
+          label="Address"
           name="address"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ nhân viên",
+              message: "Please enter employee address",
             },
           ]}
         >
@@ -232,12 +232,12 @@ function EmployeesPage() {
 
         {/* BIRTHDAY */}
         <Form.Item
-          label="Ngày sinh"
+          label="Birthday"
           name="birthday"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập ngày sinh nhân viên",
+              message: "Please enter employee birthday",
             },
           ]}
         >
@@ -252,12 +252,24 @@ function EmployeesPage() {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Lưu thông tin
+            Create
           </Button>
         </Form.Item>
       </Form>
 
       {/* TABLE */}
+      <div style={{ width: "100%" }}>
+        <h1
+          style={{
+            width: "13%",
+            margin: "auto",
+            fontSize: "35px",
+            marginBottom: "50px",
+          }}
+        >
+          Employees List
+        </h1>
+      </div>
       <Table
         rowKey={"_id"}
         dataSource={Employees}
@@ -268,15 +280,15 @@ function EmployeesPage() {
       {/* UPDATE FORM */}
       <Modal
         open={editModalVisible}
-        title="Cập nhật thông tin"
+        title="Edit employee information"
         onCancel={() => {
           setEditModalVisible(false);
         }}
         onOk={() => {
           updateForm.submit();
         }}
-        cancelText="Đóng"
-        okText="Lưu thông tin"
+        cancelText="Close"
+        okText="Save"
       >
         <Form
           form={updateForm}
@@ -291,12 +303,12 @@ function EmployeesPage() {
         >
           {/* FIRST NAME */}
         <Form.Item
-          label="Họ"
+          label="First Name"
           name="firstName"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập họ nhân viên",
+              message: "Please enter employee first name",
             },
           ]}
         >
@@ -305,12 +317,12 @@ function EmployeesPage() {
 
         {/* LAST NAME */}
         <Form.Item
-          label="Tên"
+          label="Last Name"
           name="lastName"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tên nhân viên",
+              message: "Please enter employee last name",
             },
           ]}
         >
@@ -319,16 +331,16 @@ function EmployeesPage() {
 
         {/* EMAIL */}
         <Form.Item
-          label="Thư điện tử"
+          label="Email"
           name="email"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ thư điện tử",
+              message: "Please enter employee email",
             },
             {
               type: 'email',
-              message: "Vui lònng nhập đúng định dạng",
+              message: "Please enter correct email format",
             },
           ]}
         >
@@ -337,12 +349,12 @@ function EmployeesPage() {
 
         {/* PHONENUMBER */}
         <Form.Item
-          label="Số điện thoại"
+          label="Phone Number"
           name="phoneNumber"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập số điện thoại nhân viên",
+              message: "Please enter employee phone number",
             },
           ]}
         >
@@ -351,12 +363,12 @@ function EmployeesPage() {
 
         {/* ADDRESS */}
         <Form.Item
-          label="Địa chỉ"
+          label="Address"
           name="address"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập địa chỉ nhân viên",
+              message: "Please enter employee address",
             },
           ]}
         >
@@ -365,12 +377,12 @@ function EmployeesPage() {
 
         {/* BIRTHDAY */}
         <Form.Item
-          label="Ngày sinh"
+          label="Bỉrthday"
           name="birthday"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập ngày sinh nhân viên",
+              message: "Please enter employee birthday",
             },
           ]}
         >
