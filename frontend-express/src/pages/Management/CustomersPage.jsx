@@ -116,6 +116,7 @@ function CustomersPage() {
     // CODE ANH CALL API TO HERE
     axios.post("http://localhost:9000/customers", values).then((response) => {
       if (response.status === 201) {
+        console.log(response.data);
         createForm.resetFields();
         setRefresh((f) => f + 1);
       }

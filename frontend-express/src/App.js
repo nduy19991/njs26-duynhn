@@ -5,6 +5,7 @@ import numeral from "numeral";
 import "numeral/locales/en-au";
 import "./App.css";
 
+import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/Management/ProductsPage";
 import CustomersPage from "./pages/Management/CustomersPage";
 import EmployeesPage from './pages/EmployeesPage';
@@ -34,7 +35,7 @@ function App() {
           </Sider>
           <Layout>
             <Header>
-              <h4 style={{ color: "white", marginTop: "15px" }}>Nguyễn [H.N] Duy</h4>
+              {/* <h4 style={{ color: "white", margin: "auto" }}>Nguyễn [H.N] Duy</h4> */}
             </Header>
 
             <Content style={{ padding: 24 }}>
@@ -42,6 +43,7 @@ function App() {
                 {/* REGISTER ROUTES */}
                 <Route path="/" element={<HomePage />} />
                 <Route path="/home" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
                 {/* MANAGEMENT */}
                 <Route path="/management/products" element={<ProductsPage />} />
                 <Route path="/management/customers" element={<CustomersPage />} />

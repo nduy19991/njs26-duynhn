@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { Form, Input, Button, Table, Space, Modal } from "antd";
+import { Form, Input, Button, Table, Space, Modal, Popconfirm } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 function CategoriesPage() {
   const [refresh, setRefresh] = React.useState(0);
@@ -23,12 +24,12 @@ function CategoriesPage() {
       },
     },
     {
-      title: "Danh mục",
+      title: "Category",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Mô tả",
+      title: "Description",
       dataIndex: "description",
       key: "description",
     },
@@ -39,8 +40,22 @@ function CategoriesPage() {
       render: (text, record, index) => {
         return (
           <Space>
-            <Button onClick={() => selectCategory(record)}>Sửa</Button>
-            <Button onClick={() => deleteCategory(record._id)}>Xoá</Button>
+            <Button
+              type="dashed"
+              icon={<EditOutlined />}
+              onClick={() => selectCategory(record)}
+            />
+
+            <Popconfirm
+              title="Are you sure to delete?"
+              okText="Ok"
+              cancelText="Close"
+              onConfirm={() => {
+                deleteCategory(record._id);
+              }}
+            >
+              <Button danger type="dashed" icon={<DeleteOutlined />} />
+            </Popconfirm>
           </Space>
         );
       },
@@ -100,7 +115,7 @@ function CategoriesPage() {
   return (
     <div>
       <div style={{width:'100%'}}>
-      <h1 style={{width:'13%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Phân loại</h1>
+      <h1 style={{width:'16%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Create Category</h1>
       </div>
       {/* CREATE FORM */}
       <Form
@@ -116,12 +131,12 @@ function CategoriesPage() {
       >
         {/* TYPE */}
         <Form.Item
-          label="Danh mục"
+          label="Categoty"
           name="name"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tên danh mục",
+              message: "Please enter category",
             },
           ]}
         >
@@ -130,12 +145,12 @@ function CategoriesPage() {
 
         {/* EMAIL */}
         <Form.Item
-          label="Mô tả"
+          label="Description"
           name="description"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập mô tả",
+              message: "Please enter description",
             },
           ]}
         >
@@ -150,12 +165,15 @@ function CategoriesPage() {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Lưu thông tin
+            Create
           </Button>
         </Form.Item>
       </Form>
 
       {/* TABLE */}
+      <div style={{width:'100%'}}>
+      <h1 style={{width:'15%', margin:'auto', fontSize:'35px', marginBottom:'50px'}}>Categories List</h1>
+      </div>
       <Table
         rowKey={"_id"}
         dataSource={categories}
@@ -166,15 +184,15 @@ function CategoriesPage() {
       {/* UPDATE FORM */}
       <Modal
         open={editModalVisible}
-        title="Cập nhật thông tin"
+        title="Edit category information"
         onCancel={() => {
           setEditModalVisible(false);
         }}
         onOk={() => {
           updateForm.submit();
         }}
-        cancelText="Đóng"
-        okText="Lưu thông tin"
+        cancelText="Close"
+        okText="Save"
       >
         <Form
           form={updateForm}
@@ -189,12 +207,12 @@ function CategoriesPage() {
         >
           {/* FIRST NAME */}
         <Form.Item
-          label="Danh mục"
+          label="Category"
           name="name"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập tên danh mục",
+              message: "Please enter category",
             },
           ]}
         >
@@ -203,12 +221,12 @@ function CategoriesPage() {
 
         {/* EMAIL */}
         <Form.Item
-          label="Mô tả"
+          label="Description"
           name="description"
           rules={[
             {
               required: true,
-              message: "Vui lònng nhập mô tả",
+              message: "Please enter description",
             },
           ]}
         >
