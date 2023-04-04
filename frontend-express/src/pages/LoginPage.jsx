@@ -15,7 +15,7 @@ function Login() {
 
     const handleSubmit = (event) => {
       event.preventDefault()
-      axios.post('http://localhost:9000/auth/login', {
+      axios.post('http://localhost:9000/auth/login-jwt', {
         email: email,
         password: password
       })

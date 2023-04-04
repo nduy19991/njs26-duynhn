@@ -75,9 +75,9 @@
  border: none;
 }
 
-button:hover {
+/* button:hover {
   color: black;
-}
+} */
 
 .table {
  /* background-color: black; */
@@ -94,13 +94,13 @@ button:hover {
   margin-bottom: 100px;
 }
 
-tbody tr:nth-child(odd) {
+/* tbody tr:nth-child(odd) {
  background-color: rgb(32, 41, 32);
 }
 
 tbody tr:hover {
  background-color: #333;
-}
+} */
 
 .form {
   width: 350px;

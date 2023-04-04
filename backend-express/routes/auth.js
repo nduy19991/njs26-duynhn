@@ -31,17 +31,17 @@ router.post('/login', validateSchema(loginSchema), function (req, res, next) {
 
 // req: request
 router.post('/login-jwt', async (req, res, next) => {
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
   const found = await findDocuments(
     {
       query: {
-        username: username,
+        email: email,
         password: password,
       },
     },
-    'login',
+    'logins',
   );
 
   if (found && found.length > 0) {
