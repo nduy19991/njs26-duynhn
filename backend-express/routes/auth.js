@@ -156,7 +156,7 @@ const allowRoles = (...roles) => {
     const { sub } = payload;
 
     // FING BY _id
-    findDocument(sub, 'login')
+    findDocument(sub, 'logins')
       .then((user) => {
         if (user && user.roles) {
           let ok = false;
@@ -184,7 +184,7 @@ const allowRoles = (...roles) => {
 // ------------------------------------------------------------------------------------------------
 // CALL API JWT AUTHENTICATION & CHECK ROLES
 // ------------------------------------------------------------------------------------------------
-router.get('/roles', passport.authenticate('jwt', { session: false }), allowRoles('managers', 'supervisors'), function (req, res, next) {
+router.get('/roles', passport.authenticate('jwt', { session: false }), allowRoles('managers', 'adminnisrators'), function (req, res, next) {
   res.json({ ok: true });
 });
 
