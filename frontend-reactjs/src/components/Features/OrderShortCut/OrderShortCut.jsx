@@ -8,12 +8,12 @@ import moment from "moment";
 function OrdersPage() {
   //Call API
   const [orders, setOrders] = React.useState([]);
-  const [customers, setCustomers] = React.useState([]);
-  const [employees, setEmployees] = React.useState([]);
-  const [products, setProducts] = React.useState([]);
+  const [setCustomers] = React.useState([]);
+  const [setEmployees] = React.useState([]);
+  const [setProducts] = React.useState([]);
 
   //Refresh
-  const [refresh, setRefresh] = React.useState(0);
+  const [refresh] = React.useState(0);
 
   //columns of antd table
   const columns = [
@@ -123,21 +123,21 @@ function OrdersPage() {
     axios.get("http://localhost:9000/customers").then((response) => {
       setCustomers(response.data);
     });
-  }, []);
+  });
 
   React.useEffect(() => {
     axios.get("http://localhost:9000/employees").then((response) => {
       // console.log(response.data);
       setEmployees(response.data);
     });
-  }, []);
+  });
 
   React.useEffect(() => {
     axios.get("http://localhost:9000/products").then((response) => {
       // console.log(response.data);
       setProducts(response.data);
     });
-  }, []);
+  });
 
   //   const [createForm] = Form.useForm();
 

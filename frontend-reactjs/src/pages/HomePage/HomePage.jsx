@@ -6,8 +6,6 @@ import SalesChart from "../../components/Features/SalesChart/SalesChart";
 import OrderShortCut from "../../components/Features/OrderShortCut/OrderShortCut";
 import OutOfStockProducts from "../../components/Features/OutOfStockProducts/OutOfStockProducts";
 
-import Feeds from "../../components/Features/Feeds/Feeds";
-
 export default function HomePage() {
   return (
     <div className={Styles.container}>

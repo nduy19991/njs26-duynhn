@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Card, CardBody } from "reactstrap";
 import { BsWallet, BsPersonLinesFill, BsBoxSeam } from "react-icons/bs";
 import { TiInfoOutline } from "react-icons/ti";

@@ -1,17 +1,6 @@
 import React from "react";
 import axios from "axios";
-import {
-  Form,
-  Input,
-  Button,
-  Modal,
-  Space,
-  Table,
-  Popconfirm,
-  DatePicker,
-  Select,
-  TreeSelect,
-} from "antd";
+import { Form, Input, Button, Modal, Space, Table, Popconfirm, DatePicker, Select,} from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 import Styles from "../../CommonPage.module.css";

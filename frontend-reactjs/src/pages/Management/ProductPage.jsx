@@ -1,22 +1,7 @@
 import React from "react";
 import axios from "axios";
-import {
-  Form,
-  Input,
-  Button,
-  Modal,
-  Space,
-  Table,
-  InputNumber,
-  Select,
-  Popconfirm,
-} from "antd";
-import {
-  DeleteOutlined,
-  ExitOutlined,
-  UploadOutlined,
-  EditOutlined,
-} from "@ant-design/icons";
+import { Form, Input, Button, Modal, Space, Table, InputNumber, Select, Popconfirm } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import numeral from "numeral";
 import "numeral/locales/vi";
 

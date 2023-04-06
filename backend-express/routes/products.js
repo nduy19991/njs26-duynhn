@@ -114,33 +114,29 @@ const question1Schema = yup.object({
   params: yup.object({}),
 });
 
-router.get(
-  "/questions/1",
-  validateSchema(question1Schema),
-  function (req, res, next) {
-    try {
-      let discount = req.query.discount;
-      let query = { discount: { $lte: discount } };
-      Product.find(query)
-        .populate("category")
-        .populate("supplier")
-        .then((result) => {
-          res.send(result);
-        })
-        .catch((err) => {
-          res.status(400).send({ message: err.message });
-        });
-    } catch (err) {
-      res.sendStatus(500);
-    }
+router.get("/question/1", function (req, res, next) {
+  try {
+    let discount = req.query.discount;
+    let query = { discount: { $lte: discount } };
+    Product.find(query)
+      .populate("category")
+      .populate("supplier")
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
   }
-);
+});
 
 // ------------------------------------------------------------------------------------------------
-// QUESTIONS 2
+// QUESTION 2
 // ------------------------------------------------------------------------------------------------
-// https://www.mongodb.com/docs/manual/reference/operator/query/
-router.get("/questions/2", function (req, res, next) {
+//http://localhost:9000/products/question/2?stock=
+router.get("/question/2", function (req, res, next) {
   try {
     let stock = req.query.stock;
     let query = { stock: { $lte: stock } };
@@ -159,21 +155,88 @@ router.get("/questions/2", function (req, res, next) {
 });
 
 // ------------------------------------------------------------------------------------------------
-// QUESTIONS 3
+// QUESTION 2/1
 // ------------------------------------------------------------------------------------------------
-router.get("/questions/3", async (req, res, next) => {
+//http://localhost:9000/products/question/2?stock=
+router.get("/question/2/1", function (req, res, next) {
   try {
-    // let total = { $divide: [{ $multiply: [price, { $subtract: [100, discount] }] }, 100] }
-    const s = { $subtract: [100, '$discount'] }; // (100 - 5)
-    const m = { $multiply: ['$price', s] }; // price * 95
-    const d = { $divide: [m, 100] }; // price * 95 / 100
+    // let stock = req.query.stock;
+    let query = { stock: { $lte: 10 } };
+    Product.find(query)
 
-    // let discount = req.query.discount;
-    let price = req.query;
-    // let query = { total: { $lte: total } };
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+// ------------------------------------------------------------------------------------------------
+// QUESTION 3
+// ------------------------------------------------------------------------------------------------
+router.get("/question/3", function (req, res, next) {
+  try {
+    // total = price * (100 - discount) /100
+
+    const s = { $subtract: [100, "$discount"] };
+    const m = { $multiply: ["$price", s] };
+    const d = { $divide: [m, 100] };
+
+    const price = req.query.price;
+
     let aggregate = [{ $match: { $expr: { $lte: [d, price] } } }];
+
+    // let aggregate = [{ $match: { $expr: { $lte: [d, price] } } }];
+
     Product.aggregate(aggregate)
-      .populate("supplier")
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
+      });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 25
+// ------------------------------------------------------------------------------------------------
+router.get("/question/25", async (req, res, next) => {
+  try {
+    const aggregate = [
+      {
+        $unwind: {
+          path: "$orderDetails",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      { $addFields: { productId: "$orderDetails.productId" } },
+      { $project: { productId: 1 } },
+      {
+        $group: {
+          _id: null,
+          productIds: { $addToSet: "$productId" }, // Tạo mảng đã mua
+        },
+      },
+      {
+        $lookup: {
+          from: "products",
+          let: { productIds: "$productIds" },
+          pipeline: [
+            { $match: { $expr: { $not: { $in: ["$_id", "$$productIds"] } } } },
+          ],
+          as: "productsNotInOrderDetails",
+        },
+      },
+      { $project: { productsNotInOrderDetails: 1, _id: 0 } },
+    ];
+    Order.aggregate(aggregate)
       .then((result) => {
         res.send(result);
       })

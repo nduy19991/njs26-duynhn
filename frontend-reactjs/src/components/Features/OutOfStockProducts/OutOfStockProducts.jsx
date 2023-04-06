@@ -10,12 +10,12 @@ numeral.locale("vi");
 
 function ProductPage() {
   //Call API
-  const [categories, setCategories] = React.useState([]);
-  const [suppliers, setSuppliers] = React.useState([]);
+  const [setCategories] = React.useState([]);
+  const [setSuppliers] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
   //Refresh
-  const [refresh, setRefresh] = React.useState(0);
+  const [refresh] = React.useState(0);
 
   //columns of antd table
   const columns = [
@@ -91,14 +91,14 @@ function ProductPage() {
       // console.log(response.data);
       setCategories(response.data);
     });
-  }, []);
+  });
 
   React.useEffect(() => {
     axios.get("http://localhost:9000/suppliers").then((response) => {
       // console.log(response.data);
       setSuppliers(response.data);
     });
-  }, []);
+  });
 
   React.useEffect(() => {
     axios

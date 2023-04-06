@@ -106,19 +106,87 @@ router.delete('/:id', function (req, res, next) {
 });
 
 // ------------------------------------------------------------------------------------------------
-// QUESTIONS 7
+// QUESTIONS 7,9
 // ------------------------------------------------------------------------------------------------
-// https://www.mongodb.com/docs/manual/reference/operator/query/
-// http://localhost:9000/products/questions/1?discount=10
-router.get('/questions/7', function (req, res, next) {
-  try {
-    let status = req.query.status;
-    let query = { status: { $lte: status } };
-    // address có chứa từ Hải Châu
+router.get("/question/7", function (req, res) {
+  const text = "WAITING";
+  const query = { status: new RegExp(`${text}`) };
 
+  Order.find(query)
+    .populate("orderDetails.product")
+    .populate("customer")
+    .populate("employee")
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+});
+
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 8,10
+// ------------------------------------------------------------------------------------------------
+router.get("/question/8", function (req, res) {
+  const text = "COMPLETED";
+  const eqStatus = { status: new RegExp(`${text}`) };
+  const today = new Date();
+  const eqDay = {
+    $eq: [{ $dayOfMonth: "$createdDate" }, { $dayOfMonth: today }],
+  };
+  const query = {
+    $expr: {
+      $and: [eqStatus, eqDay],
+    },
+  };
+
+  Order.find(query)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+});
+
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 8b
+// ------------------------------------------------------------------------------------------------
+router.get("/question/8b", function (req, res) {
+  const text = "COMPLETED";
+  const eqStatus = { status: new RegExp(`${text}`) };
+  const today = new Date();
+  const eqCreatedDay = {
+    $eq: [{ $dayOfMonth: "$createdDate" }, { $dayOfMonth: today }],
+  };
+  const eqShippedDay = {
+    $eq: [{ $dayOfMonth: "$shippedDate" }, { $dayOfMonth: today }],
+  };
+  const query = {
+    $expr: {
+      $and: [eqStatus, eqCreatedDay, eqShippedDay],
+    },
+  };
+
+  Order.find(query)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+});
+
+// GET ORDERS BY STATUS
+//http://localhost:9000/orders/question/7/1?status=
+router.get("/question/7/1", function (req, res, next) {
+  try {
+    let text = req.query.status;
+    const query = { status: new RegExp(`${text}`) };
     Order.find(query)
+
       .then((result) => {
-        res.send(result);
+        res.json(result);
       })
       .catch((err) => {
         res.status(400).send({ message: err.message });
@@ -126,6 +194,38 @@ router.get('/questions/7', function (req, res, next) {
   } catch (err) {
     res.sendStatus(500);
   }
+});
+
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 11,12
+// ------------------------------------------------------------------------------------------------
+router.get("/question/11", function (req, res) {
+  const text = "CASH";
+  const query = { paymentType: new RegExp(`${text}`) };
+
+  Order.find(query)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+});
+
+// ------------------------------------------------------------------------------------------------
+// QUESTIONS 13
+// ------------------------------------------------------------------------------------------------
+router.get("/question/13", function (req, res) {
+  const text = "Hà Nội";
+  const query = { shippingAddress: new RegExp(`${text}`) };
+
+  Order.find(query)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
 });
 
 module.exports = router;

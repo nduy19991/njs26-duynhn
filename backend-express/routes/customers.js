@@ -98,79 +98,81 @@ router.delete('/:id', function (req, res, next) {
 });
 
 // ------------------------------------------------------------------------------------------------
-// QUESTIONS 4
+// QUESTION 4
 // ------------------------------------------------------------------------------------------------
-// https://www.mongodb.com/docs/manual/reference/operator/query/
-router.get('/questions/4', function (req, res, next) {
-  try {
-    const text = 'Lien Chieu';
-    const query = { address: new RegExp(`${text}`) };
-    // address có chứa từ Hải Châu
+router.get("/question/4", function (req, res) {
+  const text = "Korea";
+  const query = { address: new RegExp(`${text}`) };
+  //address có chứa từ "Korea"
 
-    Customer.find(query)
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.message });
-      });
-  } catch (err) {
-    res.sendStatus(500);
-  }
+  Customer.find(query)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
 });
+// QUESTION 2
+// ------------------------------------------------------------------------------------------------
+//http://localhost:9000/products/question/2?stock=
+// router.get("/question/2", function (req, res, next) {
+//   try {
+//     let stock = req.query.stock;
+//     let query = { stock: { $lte: stock } };
+//     Product.find(query)
+//       .then((result) => {
+//         res.send(result);
+//       })
+//       .catch((err) => {
+//         res.status(400).send({ message: err.message });
+//       });
+//   } catch (err) {
+//     res.sendStatus(500);
+//   }
+// });
 
 // ------------------------------------------------------------------------------------------------
 // QUESTIONS 5
 // ------------------------------------------------------------------------------------------------
-// https://www.mongodb.com/docs/v6.0/reference/operator/aggregation/year/
-router.get('/questions/5', function (req, res, next) {
-  try {
-    const query = {
-      $expr: {
-        $eq: [{ $year: '$birthday' }, 1975],
-      },
-    };
+router.get("/question/5", function (req, res) {
+  let year = req.query.year;
+  const query = {
+    $expr: {
+      $eq: [{ $year: "$birthday" }, year],
+    },
+  };
 
-    Customer.find(query)
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.message });
-      });
-  } catch (err) {
-    res.sendStatus(500);
-  }
+  Customer.find(query)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
 });
 
 // ------------------------------------------------------------------------------------------------
 // QUESTIONS 6
 // ------------------------------------------------------------------------------------------------
-// https://www.mongodb.com/docs/v6.0/reference/operator/aggregation/month/
-// https://www.mongodb.com/docs/v6.0/reference/operator/aggregation/dayOfMonth/
-// https://www.mongodb.com/docs/manual/reference/operator/query/
-router.get('/questions/6', function (req, res, next) {
-  try {
-    const today = new Date();
-    const eqDay = { $eq: [{ $dayOfMonth: '$birthday' }, { $dayOfMonth: today }] };
-    const eqMonth = { $eq: [{ $month: '$birthday' }, { $month: today }] };
+router.get("/question/6", function (req, res) {
+  const today = new Date();
+  const eqDay = { $eq: [{ $dayOfMonth: "$birthday" }, { $dayOfMonth: today }] };X
+  const eqMonth = { $eq: [{ $month: "$birthday" }, { $month: today }] };
 
-    const query = {
-      $expr: {
-        $and: [eqDay, eqMonth],
-      },
-    };
+  const query = {
+    $expr: {
+      $and: [eqDay, eqMonth],
+    },
+  };
 
-    Customer.find(query)
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.status(400).send({ message: err.message });
-      });
-  } catch (err) {
-    res.sendStatus(500);
-  }
+  Customer.find(query)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
 });
 
 module.exports = router;
